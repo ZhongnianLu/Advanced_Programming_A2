@@ -70,7 +70,7 @@ public class Menu {
 			
 			/* prints the menu with equal spacing */
 			for( String s : options ) { 
-				System.out.printf("%-27s %d%n", s, pids[i++]);
+				System.out.printf("%-27[s %d%n", s, pids[i++]);
 			}
 	
 			Scanner scan = new Scanner(System.in);

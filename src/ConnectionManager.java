@@ -25,7 +25,6 @@ public class ConnectionManager {
 	
 	// direct add a new connection into the list, only for import database
     public void addConnection(Connection target){
-		
     	c_list.add(target);
 	}
 	
@@ -38,7 +37,7 @@ public class ConnectionManager {
 		Profile person1 = null;
 		Profile person2 = null;
 		
-		//A boolean to return whether the adding function is successed.
+		//A boolean to return whether the adding function is successes.
 		boolean success = false;
 		
 		//create a boolean to check repeat
@@ -235,13 +234,11 @@ public class ConnectionManager {
 
 		ArrayList<Connection> contain = new ArrayList<Connection>();
 				
-		for(int i=0;i<c_list.size();i++) {
-		
-		    Connection tem = c_list.get(i);	
-			
-		    if(tem.in(target) == true) {
+		for(Connection temConnection : c_list) {
+					
+		    if(temConnection.in(target) == true) {
 			 
-		 	   contain.add(tem);
+		 	   contain.add(temConnection);
 		    }
 	     
 	    }

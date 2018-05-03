@@ -6,7 +6,7 @@ import Model.Connection;
 import Model.Profile;
 
 
-public interface ConnectionsManager {
+public interface ConnectionManager {
 	
 	
 	public void addConnection(Connection target);
@@ -25,6 +25,8 @@ public interface ConnectionsManager {
 	
 	public boolean profile_repeat(Profile target, ArrayList<Profile> check_plist); 
 	 
-	public void importList(ArrayList<Connection> readConnections); 
+	public void importList(ArrayList<Connection> readConnections);
+
+	public void setPmanager(ProfileManager profiles); 
 
 }

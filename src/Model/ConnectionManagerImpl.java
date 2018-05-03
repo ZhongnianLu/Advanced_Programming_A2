@@ -1,6 +1,8 @@
 package Model;
 import java.util.ArrayList;
-import Interfaces.ConnectionsManager;
+
+import Interfaces.ConnectionManager;
+import Interfaces.ProfileManager;
 
 /*
  * Author: Zhongnian Lu s3512993
@@ -13,7 +15,7 @@ import Interfaces.ConnectionsManager;
  * 
  */
 
-public class ConnectionManagerImpl implements ConnectionsManager{
+public class ConnectionManagerImpl implements ConnectionManager{
 	
 
 	//Access list of connections
@@ -21,7 +23,7 @@ public class ConnectionManagerImpl implements ConnectionsManager{
 	
 	
 	//Provide an instance of Profile manager to access profile list
-	ProfileManagerImpl Pmanager;	
+	ProfileManager Pmanager;	
 	
 	
 	// direct add a new connection into the list, only for import database
@@ -281,6 +283,13 @@ public class ConnectionManagerImpl implements ConnectionsManager{
 		
 		}
 		
+	}
+
+
+	@Override
+	public void setPmanager(ProfileManager profiles) {
+
+		Pmanager = profiles;
 	}
 
 }

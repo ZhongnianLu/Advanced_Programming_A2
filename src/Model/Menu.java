@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Interfaces.ConnectionManager;
+import Interfaces.ProfileManager;
+
 /*
  * Author: Jake Mott s3349405
  * 
@@ -17,15 +20,15 @@ public class Menu {
 	
 	/* Initiating the main manager classes and the data source class */
 	public static Database data = new Database(); 
-	public static ProfileManagerImpl profiles = new ProfileManagerImpl();  
-	public static ConnectionManagerImpl conns = new ConnectionManagerImpl(); 
+	public static ProfileManager profiles = new ProfileManagerImpl();  
+	public static ConnectionManager conns = new ConnectionManagerImpl(); 
 	
 	public void getMenu() throws IOException {
 		
 		/* Imports the profiles and connections from the data object data source */
 		profiles.importList(data.readProfiles());
 		conns.importList(data.readConnections()); 
-		conns.Pmanager = profiles;
+		conns.setPmanager(profiles);
 			
 		int option;
 		do{
@@ -71,7 +74,7 @@ public class Menu {
 			
 			/* prints the menu with equal spacing */
 			for( String s : options ) { 
-				System.out.printf("%-27[s %d%n", s, pids[i++]);
+				System.out.printf("%-27s %d%n", s, pids[i++]);
 			}
 	
 			Scanner scan = new Scanner(System.in);

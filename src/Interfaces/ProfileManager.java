@@ -20,4 +20,10 @@ public interface ProfileManager {
 	
 	public Profile askInfo() throws IOException, InputMismatchException;
 
+	public ArrayList<Profile> get_Plist();
+
+	public void addProfile(Profile person);
+
+	public void removeProfile(Profile person);
+
 }

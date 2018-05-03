@@ -1,5 +1,6 @@
+package Model;
 import java.util.ArrayList;
-
+import Interfaces.ConnectionsManager;
 
 /*
  * Author: Zhongnian Lu s3512993
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * 
  */
 
-public class ConnectionManager {
+public class ConnectionManagerImpl implements ConnectionsManager{
 	
 
 	//Access list of connections
@@ -20,7 +21,7 @@ public class ConnectionManager {
 	
 	
 	//Provide an instance of Profile manager to access profile list
-	ProfileManager Pmanager;	
+	ProfileManagerImpl Pmanager;	
 	
 	
 	// direct add a new connection into the list, only for import database
@@ -82,7 +83,7 @@ public class ConnectionManager {
 	
 	
 	// add new parent connection by passing three IDs including parents and child
-    boolean addParentConnection(int ID_1,int ID_2,int ID_child){
+    public boolean addParentConnection(int ID_1,int ID_2,int ID_child){
 	
     	boolean success = false;
     	
@@ -134,7 +135,7 @@ public class ConnectionManager {
     
     
 	// add new couple connection by passing two IDs
-    boolean addCoupleConnection(int ID_1,int ID_2){
+    public boolean addCoupleConnection(int ID_1,int ID_2){
     	
     	//Access a temporary profile list from profile manager class 
 	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();

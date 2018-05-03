@@ -1,7 +1,10 @@
+package Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import Interfaces.ProfileManager;
 
 /*
  * Author: Jake Mott s3349405
@@ -12,15 +15,15 @@ import java.util.Scanner;
  * 
  */
 
-public class ProfileManager {
+public class ProfileManagerImpl implements ProfileManager {
 	
 	ArrayList<Profile> profiles =new ArrayList<Profile>();
 	
-	public ProfileManager(ArrayList<Profile> profs) {
+	public ProfileManagerImpl(ArrayList<Profile> profs) {
 		this.profiles = profs;
 	}
 	
-	public ProfileManager() {
+	public ProfileManagerImpl() {
 		this.profiles = new ArrayList<Profile>();
 	}
 	

@@ -1,3 +1,4 @@
+package Model;
 import java.util.ArrayList;
 
 public class Colleagues_Connection extends Connection{
@@ -8,7 +9,10 @@ public class Colleagues_Connection extends Connection{
 
 	@Override
 	public boolean check(ArrayList<Connection> c_list) {
-		return false;
+		
+		boolean success = false;
+		return success;
+
 	}
 
 }

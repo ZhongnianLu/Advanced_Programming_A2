@@ -1,3 +1,4 @@
+package Model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,8 +17,8 @@ public class Menu {
 	
 	/* Initiating the main manager classes and the data source class */
 	public static Database data = new Database(); 
-	public static ProfileManager profiles = new ProfileManager();  
-	public static ConnectionManager conns = new ConnectionManager(); 
+	public static ProfileManagerImpl profiles = new ProfileManagerImpl();  
+	public static ConnectionManagerImpl conns = new ConnectionManagerImpl(); 
 	
 	public void getMenu() throws IOException {
 		
@@ -116,7 +117,7 @@ public class Menu {
 			/* If the person is a dependent */
 			if (person.getAge() > 0 && person.getAge() < 16) {				
 				/* create temporary ProgramManager object containing a list of adults */
-				ProfileManager tempList = new ProfileManager(profiles.getAdults());
+				ProfileManagerImpl tempList = new ProfileManagerImpl(profiles.getAdults());
 					
 				System.out.println("\nYou are a dependent. Please select your parents");
 				Profile parent1 = tempList.selectProfile("--First Parent--"); 
@@ -153,7 +154,7 @@ public class Menu {
 		
 	/* Select two profiles from a list and create necessary connections automatically or through a menu */
  	public static void addConnection() throws IOException {
- 		ProfileManager tempList = new ProfileManager();
+ 		ProfileManagerImpl tempList = new ProfileManagerImpl();
  		tempList.importList(profiles.get_Plist());
 		
  		try {
@@ -222,7 +223,7 @@ public class Menu {
  	public static void createParent(Profile pers1, Profile pers2) throws IOException {
  				
  		Scanner scan = new Scanner(System.in);
-		ProfileManager pers = new ProfileManager();
+		ProfileManagerImpl pers = new ProfileManagerImpl();
 		pers.importList(new ArrayList<Profile>(Arrays.asList(pers1, pers2)));
 		
 		/* Selects the child from the 2 given persons */
@@ -395,7 +396,7 @@ public class Menu {
  	/* Method for selection 2 profiles and check if they are connected */
 	public static void checkConnection() throws IOException {
 		try {
-			ProfileManager tempList = new ProfileManager();
+			ProfileManagerImpl tempList = new ProfileManagerImpl();
 	 		tempList.importList(profiles.get_Plist());
 				
 	 		/* Selects the profiles, removing first person for the second selection */

@@ -1,3 +1,4 @@
+package Model;
 
 /*
  * Author: Jake Mott s3349405

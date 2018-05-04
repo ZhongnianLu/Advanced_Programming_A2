@@ -1,6 +1,9 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NoParentException;
+import Exceptions.RepeatException;
+
 /*
  * Author: Zhongnian Lu s3512993
  * 
@@ -51,7 +54,7 @@ public class Parent_Connection extends Connection {
 
 	
     // Check whether added parent is valid or not
-	public boolean check(ArrayList<Connection> c_list) {
+	public void check(ArrayList<Connection> c_list) throws NoParentException {
 		
 		boolean success = false;
 		
@@ -91,15 +94,16 @@ public class Parent_Connection extends Connection {
 			}
 		}	
 		
-		return success;
+		if(success == false) {
+			
+			throw new NoParentException("Parent are not couple.");
+		}
 	}
 	
 	
 	
 	// Show difference with normal connection due to the involvement of child.
-	 public boolean repeat_check(ArrayList<Connection> c_list) {
-		
-		boolean repeat = false;
+	 public void repeat_check(ArrayList<Connection> c_list) throws RepeatException {
 		
 		boolean child_repeat = false;
 		
@@ -117,22 +121,17 @@ public class Parent_Connection extends Connection {
 	    				&& c_list.get(i).getPerson2().getID() == getPerson2().getID()
 		    			&& child_repeat == true){
 				
-			    	repeat = true;
-	    			System.out.println("Repeated");
+	    			throw new RepeatException("Repeated");
 		    	}
 			
     			if(c_list.get(i).getPerson2().getID() == getPerson1().getID() 
 	    				&& c_list.get(i).getPerson1().getID() == getPerson2().getID()
 		    			&& child_repeat == true){
 			
-	    			repeat = true;
-		    		System.out.println("Repeated");
-		    		
+	    			throw new RepeatException("Repeated");
     			}
 			}	
 		}
-		
-		return repeat;
 	}
 
 	

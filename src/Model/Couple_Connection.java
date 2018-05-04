@@ -20,7 +20,7 @@ public class Couple_Connection extends Connection{
 	//Override check method from super class. 
 	//Each person in a couple can't exist in other couple connections.
 	@Override
-	public boolean check(ArrayList<Connection> c_list) {
+	public void check(ArrayList<Connection> c_list) {
 
 		boolean success = true;
 		
@@ -51,8 +51,6 @@ public class Couple_Connection extends Connection{
 		        }
 		    }
 		}
-		
-		return success;
 	}
 }
 

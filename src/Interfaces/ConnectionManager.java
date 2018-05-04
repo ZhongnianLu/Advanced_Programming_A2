@@ -2,6 +2,10 @@ package Interfaces;
 
 import java.util.ArrayList;
 
+import Exceptions.NoParentException;
+import Exceptions.NotToBeFriendsException;
+import Exceptions.RepeatException;
+import Exceptions.TooYoungException;
 import Model.Connection;
 import Model.Profile;
 
@@ -11,11 +15,11 @@ public interface ConnectionManager {
 	
 	public void addConnection(Connection target);
 	
-	public boolean addFriendConnection(int ID_1,int ID_2);
+	public void addFriendConnection(int ID_1,int ID_2) throws Exception;
 		
-	boolean addParentConnection(int ID_1,int ID_2,int ID_child);
+	void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException;
 	
-	public boolean addCoupleConnection(int ID_1,int ID_2);
+	public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException;
 	
 	public ArrayList<Connection> get_Clist();
 	

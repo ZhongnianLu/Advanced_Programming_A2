@@ -1,6 +1,9 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NotToBeFriendsException;
+import Exceptions.RepeatException;
+
 /*
  * Author: Zhongnian Lu s3512993
  * 
@@ -51,22 +54,19 @@ public abstract class Connection {
 	
 	
     //Abstract method to check whether this connection is valid to be added. Need to be override.
-	public abstract boolean check(ArrayList<Connection> c_list) ;
+	public abstract void check(ArrayList<Connection> c_list) throws Exception ;
 	
 	
 	
 	//Check whether this connection already added in the connection list
-	public boolean repeat_check(ArrayList<Connection> c_list) {
-		
-		boolean repeat = false;
-		
+	public void repeat_check(ArrayList<Connection> c_list) throws RepeatException {
+				
 		for(int i = 0;i < c_list.size();i++) {
 			
 			if(c_list.get(i).getPerson1().getID() == getPerson1().getID() 
 					&& c_list.get(i).getPerson2().getID() == getPerson2().getID()
 					&& c_list.get(i).getClass().equals(getClass())){
 			 
-				repeat = true;
 				
 				System.out.println("Repeated");
 			}
@@ -75,13 +75,11 @@ public abstract class Connection {
 					&& c_list.get(i).getPerson1().getID() == getPerson2().getID()
 					&& c_list.get(i).getClass().equals(getClass())){
 				
-				repeat = true;
-				
-				System.out.println("Repeated");
+				throw new RepeatException("ID Repeated");
+								
 			}
 		}
 		
-		return repeat;
 	}
 	
 	

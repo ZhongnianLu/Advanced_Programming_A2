@@ -1,6 +1,9 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NotToBeFriendsException;
+import Exceptions.TooYoungException;
+
 /*
  * Author: Zhongnian Lu s3512993
  * 
@@ -18,53 +21,39 @@ public  class Friend_Connection extends Connection{
 	
 	
 	//Override check method from super class. Friend connections include dependent friend and adult friend.
-	public boolean check(ArrayList<Connection> c_list) {
-
-		boolean success=false;
+	public void check(ArrayList<Connection> c_list) throws NotToBeFriendsException, TooYoungException {
 	
-		//check normal friend
-		if(getPerson1().getAge() >= 16 && getPerson2().getAge() >= 16) {
-			
-			success=true;
-		}
-		
 		//check dependent friend
-		else if(getPerson1().getAge() < 16 && getPerson2().getAge() < 16
+		if(getPerson1().getAge() < 16 && getPerson2().getAge() < 16
 				                      && getPerson1().getAge() > 2 
 				                      && getPerson2().getAge() > 2) {
 			
 			if(getPerson1().getAge() > getPerson2().getAge()) {
 				
-				if(getPerson1().getAge() - getPerson2().getAge() <= 3) {
-				
-					success = true;
-				}else {
-				
-					System.out.println("The age difference between two children is too large.");
+				if(getPerson1().getAge() - getPerson2().getAge() > 3) {
+					
+					throw new NotToBeFriendsException("Can't make an adult and a child friend or connect two\n" + 
+							" * children with an age gap larger than 3");
 				}
 			}
 			
 			if(getPerson1().getAge() < getPerson2().getAge()) {
 				
-				if(getPerson2().getAge() - getPerson1().getAge() <= 3) {
-					
-					success = true;
-					
-				}else {
+				if(getPerson2().getAge() - getPerson1().getAge() > 3) {
 				
-					System.out.println("The age difference between two children is too large.");
-				}
+					throw new NotToBeFriendsException("Can't make an adult and a child friend or connect two\n" + 
+							" * children with an age gap larger than 3");				}
 			}
 			
 		}else if(getPerson1().getAge() > 2 || getPerson2().getAge() > 2){
 			
-			System.out.println("Children have to be older than 2 years to make friends.");
+			throw new TooYoungException("Can't make friend with a young child");
 		
 		}else {
-			System.out.println("Children can't make friend with an adult.");
+			
+			throw new TooYoungException("Can't make friend with a young child");
 		}
 		
-		return success;
 		
     }
 

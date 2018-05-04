@@ -1,6 +1,10 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NoParentException;
+import Exceptions.NotToBeFriendsException;
+import Exceptions.RepeatException;
+import Exceptions.TooYoungException;
 import Interfaces.ConnectionManager;
 import Interfaces.ProfileManager;
 
@@ -33,15 +37,12 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
 	
 	//Method to create a friend connection and store it in the list
-	public boolean addFriendConnection(int ID_1,int ID_2){
+	public void addFriendConnection(int ID_1,int ID_2) throws NotToBeFriendsException, TooYoungException, RepeatException{
 		
 		ArrayList<Profile> tem_pList = Pmanager.get_Plist();
 		
 		Profile person1 = null;
 		Profile person2 = null;
-		
-		//A boolean to return whether the adding function is successes.
-		boolean success = false;
 		
 		//create a boolean to check repeat
 		boolean repeat = false;
@@ -61,31 +62,22 @@ public class ConnectionManagerImpl implements ConnectionManager{
 				
 				person2 = tem_pList.get(i);
 			}
-			
-	    }
-		
+		}
 		
 		//create a new connection with selected profiles
 		Friend_Connection addConnect = new Friend_Connection(person1,person2);
 		
-		
 		//check whether the friend connection is valid by calling age check method 
-		if(addConnect.check(c_list) == true
-				&& addConnect.repeat_check(c_list) == false) {
-		
-			c_list.add(addConnect);
-		
-		    success = true;
-		}
-		
-		return success;
-	
+		addConnect.check(c_list);
+		addConnect.repeat_check(c_list);
+		c_list.add(addConnect);
 	}
+		
 	
 	
 	
 	// add new parent connection by passing three IDs including parents and child
-    public boolean addParentConnection(int ID_1,int ID_2,int ID_child){
+    public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException{
 	
     	boolean success = false;
     	
@@ -124,20 +116,18 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
 		Parent_Connection addConnect = new Parent_Connection(person1,person2,child);
 		
-		if(addConnect.check(c_list) == true 
-				&& addConnect.repeat_check(c_list) == false) {
-			
-			c_list.add(addConnect);
-			success = true;
-		}
-		
-		return success;
+		addConnect.check(c_list);
+		addConnect.repeat_check(c_list);
+		c_list.add(addConnect);
+	
     }
+		
+    
 
     
     
 	// add new couple connection by passing two IDs
-    public boolean addCoupleConnection(int ID_1,int ID_2){
+    public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException{
     	
     	//Access a temporary profile list from profile manager class 
 	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();
@@ -169,14 +159,11 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
 		Couple_Connection addConnect = new Couple_Connection(person1,person2);
 		
-		if((addConnect.check(c_list) == true) 
-				&& addConnect.repeat_check(c_list) == false ){
+		addConnect.check(c_list);
+		addConnect.repeat_check(c_list);
 		
-			c_list.add(addConnect);
-			success = true;
-		}
+		c_list.add(addConnect);
 		
-		return success;
 	}
 
     

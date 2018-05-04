@@ -8,6 +8,11 @@ package Exceptions;
 public class NotToBeFriendsException extends Exception {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8852877254457325657L;
+
 	public NotToBeFriendsException(String message) {
 		
 		super(message);

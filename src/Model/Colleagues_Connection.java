@@ -8,10 +8,9 @@ public class Colleagues_Connection extends Connection{
 	}
 
 	@Override
-	public boolean check(ArrayList<Connection> c_list) {
+	public void check(ArrayList<Connection> c_list) {
 		
-		boolean success = false;
-		return success;
+	
 
 	}
 

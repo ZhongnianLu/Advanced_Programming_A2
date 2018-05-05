@@ -135,9 +135,11 @@ public class Menu {
 					throw new IOException("Error: Progrfile is null. Exiting to main menu.");
 				}
 				
-				if(conns.addParentConnection(parent1.getID(),parent2.getID(), person.getID())) {
+				try{
+					conns.addParentConnection(parent1.getID(),parent2.getID(), person.getID());
 					System.out.println("\nProfile created");
-				} else {
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
 					profiles.removeProfile(person);
 					throw new IOException("\nError: Parents must be connected");
 				}
@@ -177,7 +179,7 @@ public class Menu {
 			
 			/* If a dependents then check if they have the same parents */
 			if (person1.getAge() < 16 && person2.getAge() < 16 && diffParents(person1, person2)) {
-					if(conns.addFriendConnection(person1.getID(), person2.getID())) {
+					try(conns.addFriendConnection(person1.getID(), person2.getID())) {
 						System.out.println(person1.getName() + " is now friends with " + person2.getName());
 					}
 			} else if (person1.getAge() >= 16 && person2.getAge() >= 16){

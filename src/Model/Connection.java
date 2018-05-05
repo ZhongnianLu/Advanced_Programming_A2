@@ -68,7 +68,7 @@ public abstract class Connection {
 					&& c_list.get(i).getClass().equals(getClass())){
 			 
 				
-				System.out.println("Repeated");
+				throw new RepeatException("ID Repeated");
 			}
 	
 			if(c_list.get(i).getPerson2().getID() == getPerson1().getID() 

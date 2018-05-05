@@ -33,5 +33,7 @@ public interface ConnectionManager {
 	public void importList(ArrayList<Connection> readConnections);
 
 	public void setPmanager(ProfileManager profiles); 
+	
+	public void removeConnections(int ID) throws NoParentException;
 
 }

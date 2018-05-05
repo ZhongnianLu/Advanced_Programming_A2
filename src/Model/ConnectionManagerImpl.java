@@ -1,6 +1,8 @@
 package Model;
 import java.util.ArrayList;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import Exceptions.NoParentException;
 import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
@@ -98,14 +100,22 @@ public class ConnectionManagerImpl implements ConnectionManager{
     
     
     //NEED TEST!!!!!!!!!!!!!!!!
-    public void removeConnections(Profile targetProfile) throws NoParentException {
+    public void removeConnections(int ID) throws NoParentException {
+    	
+    	Profile targetProfile = Pmanager.searchProfile(ID);
     	
     	// check whether the person has any independent
     	for(Connection connection : search_clist(targetProfile)) {
     		
-    		if(connection instanceof Parent_Connection && 
-    				(connection.getPerson1() == targetProfile) || (connection.getPerson2() == targetProfile)) {
-    			
+    		System.out.println("Person1: "+connection.getPerson1().getID());
+        	System.out.println("Person2: " + connection.getPerson2().getID());
+       // 	System.out.print("+" +connection.getChild().getID());
+       
+
+    		if(connection instanceof Parent_Connection && (
+    				connection.getPerson1().getID() == targetProfile.getID() || 
+    				connection.getPerson2().getID() == targetProfile.getID())) {
+    
     			throw new NoParentException("Can't delete a person with at least one dependent");
     			
     		}
@@ -113,11 +123,13 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	}
     	
     	//remove all connection 
-    	for(Connection connection : c_list) {
+    	for(java.util.Iterator<Connection> iterator = c_list.iterator(); iterator.hasNext();) {
+    		
+    		Connection connection = iterator.next();
     		
     		if(connection.hasProfile(targetProfile)) {
-    			
-    			c_list.remove(connection);
+    			System.out.println("remove test");
+    			iterator.remove();
     		}
     		
     	}
@@ -231,6 +243,10 @@ public class ConnectionManagerImpl implements ConnectionManager{
 
 }
     
+	
+    
+    
+     
 	
     
     

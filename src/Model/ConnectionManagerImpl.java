@@ -105,12 +105,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	Profile targetProfile = Pmanager.searchProfile(ID);
     	
     	// check whether the person has any independent
-    	for(Connection connection : search_clist(targetProfile)) {
-    		
-    		System.out.println("Person1: "+connection.getPerson1().getID());
-        	System.out.println("Person2: " + connection.getPerson2().getID());
-       // 	System.out.print("+" +connection.getChild().getID());
-       
+    	for(Connection connection : search_clist(targetProfile)) {       
 
     		if(connection instanceof Parent_Connection && (
     				connection.getPerson1().getID() == targetProfile.getID() || 

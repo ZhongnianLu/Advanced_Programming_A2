@@ -159,7 +159,21 @@ public class ProfileManagerImpl implements ProfileManager {
 		
 		return person;			
 	}
+	
+	
+	public Profile searchProfile(int ID) {
+		
+		for(Profile profile : profiles) {
+			
+			if(profile.getID() == ID) {
+				
+				return profile;
+			}
+		}
+		
+		return null;
+		
+	}
 
 
 }
-

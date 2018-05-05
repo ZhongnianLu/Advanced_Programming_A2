@@ -25,5 +25,7 @@ public interface ProfileManager {
 	public void addProfile(Profile person);
 
 	public void removeProfile(Profile person);
+	
+	public Profile searchProfile(int ID);
 
 }

@@ -39,31 +39,9 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
 	//Method to create a friend connection and store it in the list
 	public void addFriendConnection(int ID_1,int ID_2) throws NotToBeFriendsException, TooYoungException, RepeatException{
-		
-		ArrayList<Profile> tem_pList = Pmanager.get_Plist();
-		
-		Profile person1 = null;
-		Profile person2 = null;
-		
-		//create a boolean to check repeat
-		boolean repeat = false;
-		
-		//get profiles from profile list with same ID as parameter 
-		for(int i = 0;i < tem_pList.size();i++) {
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&&repeat == false) {
-			
-				person1 = tem_pList.get(i);
-				repeat = true;	
-			}
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&&repeat == true) {
 				
-				person2 = tem_pList.get(i);
-			}
-		}
+		Profile person1 = Pmanager.searchProfile(ID_1);
+		Profile person2 = Pmanager.searchProfile(ID_2);
 		
 		//create a new connection with selected profiles
 		Friend_Connection addConnect = new Friend_Connection(person1,person2);
@@ -75,41 +53,12 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	}
 		
 	
-	
-	
 	// add new parent connection by passing three IDs including parents and child
     public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException{
-	    	
-	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();
-		
-		Profile person1 = null;
-		Profile person2 = null;
-		Profile child = null;
-		 
-		boolean repeat = false;
-		
-		
-		//get parents' and child's profiles from the profile list by checking their IDs 
-		for(int i=0;i<tem_pList.size();i++) {
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&& repeat == false) {
-				
-				person1 = tem_pList.get(i);
-				repeat = true;	
-			}
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&& repeat == true) {
-				
-				person2 = tem_pList.get(i);
-			}
-			
-			if(tem_pList.get(i).getID() == ID_child) {
-			
-				child = tem_pList.get(i);
-			}
-		}
+	    			
+		Profile person1 = Pmanager.searchProfile(ID_1);
+		Profile person2 = Pmanager.searchProfile(ID_2);
+		Profile child = Pmanager.searchProfile(ID_child);
 		
 		
 		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
@@ -121,39 +70,12 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
     }
 		
-    
-
-    
-    
+  
 	// add new couple connection by passing two IDs
     public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException, NotToBeCoupledException{
-    	
-    	//Access a temporary profile list from profile manager class 
-	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();
 		
-		Profile person1 = null;
-		Profile person2 = null;
-		boolean repeat = false;
-		
-		// Return a boolean to indicate whether connection is successful added.
-		boolean success = false;
-		
-		//get parents' and child's profiles from the profile list by checking their IDs 
-		for(int i=0;i<tem_pList.size();i++) {
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&& repeat == false) {
-				
-				person1 = tem_pList.get(i);
-				repeat = true;	
-			}
-			
-			if((tem_pList.get(i).getID() == ID_1||tem_pList.get(i).getID() == ID_2)
-					&& repeat == true) {
-			
-				person2 = tem_pList.get(i);
-			}
-		};
+		Profile person1 = Pmanager.searchProfile(ID_1);
+		Profile person2 = Pmanager.searchProfile(ID_2);
 			
 		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
 		Couple_Connection addConnect = new Couple_Connection(person1,person2);
@@ -172,6 +94,35 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
     	return c_list;
 	}
+    
+    
+    
+    //NEED TEST!!!!!!!!!!!!!!!!
+    public void removeConnections(Profile targetProfile) throws NoParentException {
+    	
+    	// check whether the person has any independent
+    	for(Connection connection : search_clist(targetProfile)) {
+    		
+    		if(connection instanceof Parent_Connection && 
+    				(connection.getPerson1() == targetProfile) || (connection.getPerson2() == targetProfile)) {
+    			
+    			throw new NoParentException("Can't delete a person with at least one dependent");
+    			
+    		}
+    		
+    	}
+    	
+    	//remove all connection 
+    	for(Connection connection : c_list) {
+    		
+    		if(connection.hasProfile(targetProfile)) {
+    			
+    			c_list.remove(connection);
+    		}
+    		
+    	}
+    	
+    }
 	
     
     
@@ -185,7 +136,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		    Connection tem = c_list.get(i);	
 			
 		    //Use check tool created in connection to make sure target person is in the connection.
-		    if(tem.in(target) == true) {
+		    if(tem.hasProfile(target) == true) {
 	
 		        if((profile_repeat(tem.getPerson1(), contain) == false)
 				    && tem.getPerson1().getID() != target.getID()) {
@@ -225,7 +176,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 				
 		for(Connection temConnection : c_list) {
 					
-		    if(temConnection.in(target) == true) {
+		    if(temConnection.hasProfile(target) == true) {
 			 
 		 	   contain.add(temConnection);
 		    }

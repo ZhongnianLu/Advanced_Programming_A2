@@ -99,7 +99,7 @@ public abstract class Connection {
 	
 	
 	//Serve the search function: check whether the target profile is in this connection
-	public  boolean in (Profile target){
+	public  boolean hasProfile (Profile target){
 		
      	boolean in=false;
 	

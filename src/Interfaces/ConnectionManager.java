@@ -3,6 +3,7 @@ package Interfaces;
 import java.util.ArrayList;
 
 import Exceptions.NoParentException;
+import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
 import Exceptions.RepeatException;
 import Exceptions.TooYoungException;
@@ -19,7 +20,7 @@ public interface ConnectionManager {
 		
 	void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException;
 	
-	public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException;
+	public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException, NotToBeCoupledException;
 	
 	public ArrayList<Connection> get_Clist();
 	

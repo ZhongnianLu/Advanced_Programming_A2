@@ -1,6 +1,8 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NotToBeCoupledException;
+
 /*
  * Author: Zhongnian Lu s3512993
  * 
@@ -20,10 +22,17 @@ public class Couple_Connection extends Connection{
 	//Override check method from super class. 
 	//Each person in a couple can't exist in other couple connections.
 	@Override
-	public void check(ArrayList<Connection> c_list) {
-
-		boolean success = true;
+	public void check(ArrayList<Connection> c_list) throws NotToBeCoupledException {
 		
+		//Check legal age
+		if(getPerson1().getAge() < 16 || getPerson2().getAge() <16 ) {
+			
+			throw new NotToBeCoupledException("At least one person in this "
+					+ "couple connection is not in legal age");
+		}
+		
+		
+		// Check whether person in this couple connection is repeated in other couple connections
 		for(int i = 0;i < c_list.size();i++) {
 			
 			Profile person_x;	
@@ -34,21 +43,16 @@ public class Couple_Connection extends Connection{
 			
 			person_y = c_list.get(i).getPerson2();
 			
+			
 			if(c_list.get(i) instanceof Couple_Connection) {
 				
-		    	if(person_x.getID() == getPerson1().getID() 
-					|| person_y.getID() == getPerson2().getID()) {
+		    	if((person_x.getID() == getPerson1().getID() || person_y.getID() == getPerson2().getID())
+		    			|| (person_x.getID() == getPerson2().getID() || person_y.getID() == getPerson1().getID())
+		    			) {
 				
-			    	success = false;
-				
+		    		throw new NotToBeCoupledException("At least one person in this connectionn is already "
+		    				+ "in a couple connection");
 			    }
-			
-	    		if(person_x.getID() == getPerson2().getID() 
-					|| person_y.getID() == getPerson1().getID()) {
-				
-    				success = false;
-			
-		        }
 		    }
 		}
 	}
@@ -56,4 +60,3 @@ public class Couple_Connection extends Connection{
 
 	
 	
-

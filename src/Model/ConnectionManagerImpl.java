@@ -2,6 +2,7 @@ package Model;
 import java.util.ArrayList;
 
 import Exceptions.NoParentException;
+import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
 import Exceptions.RepeatException;
 import Exceptions.TooYoungException;
@@ -78,9 +79,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
 	// add new parent connection by passing three IDs including parents and child
     public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException{
-	
-    	boolean success = false;
-    	
+	    	
 	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();
 		
 		Profile person1 = null;
@@ -127,7 +126,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     
     
 	// add new couple connection by passing two IDs
-    public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException{
+    public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException, NotToBeCoupledException{
     	
     	//Access a temporary profile list from profile manager class 
 	    ArrayList<Profile> tem_pList = Pmanager.get_Plist();
@@ -282,6 +281,5 @@ public class ConnectionManagerImpl implements ConnectionManager{
 }
     
 	
-    
     
     

@@ -61,5 +61,3 @@ public class Couple_Connection extends Connection{
 	
 	
 
-
-	

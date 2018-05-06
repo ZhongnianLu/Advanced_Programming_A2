@@ -37,23 +37,33 @@ public class ConnectionManagerImpl implements ConnectionManager{
     public void addConnection(Connection target){
     	c_list.add(target);
 	}
-	
-	
-	//Method to create a friend connection and store it in the list
-	public void addFriendConnection(int ID_1,int ID_2) throws NotToBeFriendsException, TooYoungException, RepeatException{
-				
-		Profile person1 = Pmanager.searchProfile(ID_1);
+    
+    /*Connection type 1: friendConnection
+    * Connection type 2: coupleConnection
+    * Connection type 3: colleagueConnection
+    * Connection type 4: ClassmatesConnection
+    */
+    public void addConnection(int ID_1, int ID_2, int connectionType) throws Exception  {
+    	Profile person1 = Pmanager.searchProfile(ID_1);
 		Profile person2 = Pmanager.searchProfile(ID_2);
 		
-		//create a new connection with selected profiles
-		Friend_Connection addConnect = new Friend_Connection(person1,person2);
+		Connection addConnect = null;
 		
-		//check whether the friend connection is valid by calling age check method 
+		if(connectionType == 1) {
+		//create a new connection with selected profiles
+			addConnect = new Friend_Connection(person1,person2);
+		}else if(connectionType == 2){
+			addConnect = new Couple_Connection(person1,person2);
+		}else if(connectionType == 3){
+			addConnect = new Colleagues_Connection(person1,person2);
+		}
+		//check whether the couple connection is valid by calling age check method 
 		addConnect.check(c_list);
 		addConnect.repeat_check(c_list);
 		c_list.add(addConnect);
-	}
 		
+	}
+	
 	
 	// add new parent connection by passing three IDs including parents and child
     public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException{
@@ -71,41 +81,28 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		c_list.add(addConnect);
 	
     }
-		
-  
-	// add new couple connection by passing two IDs
-    public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException, NotToBeCoupledException{
-		
-		Profile person1 = Pmanager.searchProfile(ID_1);
-		Profile person2 = Pmanager.searchProfile(ID_2);
-			
-		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
-		Couple_Connection addConnect = new Couple_Connection(person1,person2);
-		
-		addConnect.check(c_list);
-		addConnect.repeat_check(c_list);
-		
-		c_list.add(addConnect);
-		
-	}
+	
+    
+    
 
-    
-    
     //access connection list
     public ArrayList<Connection> get_Clist(){
 	
     	return c_list;
 	}
-    
-    
-    
+        
     //NEED TEST!!!!!!!!!!!!!!!!
     public void removeConnections(int ID) throws NoParentException {
     	
     	Profile targetProfile = Pmanager.searchProfile(ID);
     	
     	// check whether the person has any independent
-    	for(Connection connection : search_clist(targetProfile)) {       
+    	for(Connection connection : search_clist(targetProfile)) {
+    		
+    		System.out.println("Person1: "+connection.getPerson1().getID());
+        	System.out.println("Person2: " + connection.getPerson2().getID());
+       // 	System.out.print("+" +connection.getChild().getID());
+       
 
     		if(connection instanceof Parent_Connection && (
     				connection.getPerson1().getID() == targetProfile.getID() || 
@@ -240,8 +237,5 @@ public class ConnectionManagerImpl implements ConnectionManager{
     
 	
     
-    
-     
-	
     
     

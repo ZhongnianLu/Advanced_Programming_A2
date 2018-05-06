@@ -16,7 +16,7 @@ public class Parent_Connection extends Connection {
 	// difference between parent relationship and friend relationship is child profile
 	Profile child;
 	
-	ArrayList<Profile> linked_person=new ArrayList<Profile>();
+	ArrayList<Profile> linked_person = new ArrayList<Profile>();
 	
 	
 	//Constructor should include a child in parent connection.
@@ -26,7 +26,7 @@ public class Parent_Connection extends Connection {
 		
 		super(person1, person2);
 		
-		this.child=child;
+		this.child = child;
 	}
 	
 	
@@ -86,7 +86,7 @@ public class Parent_Connection extends Connection {
 			
 			}
 			
-			//check whether the connection we found is a friend connection
+			//check whether the connection we found is a couple connection
 			if(c_list.get(i) instanceof Couple_Connection 
 					&& connection_check == true) {
 				

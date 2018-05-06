@@ -16,11 +16,9 @@ public interface ConnectionManager {
 	
 	public void addConnection(Connection target);
 	
-	public void addFriendConnection(int ID_1,int ID_2) throws Exception;
-		
-	void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException;
-	
-	public void addCoupleConnection(int ID_1,int ID_2) throws RepeatException, NotToBeCoupledException;
+	public void addConnection(int ID1, int ID2, int connectionType) throws  Exception; 
+			
+	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException;
 	
 	public ArrayList<Connection> get_Clist();
 	
@@ -32,8 +30,8 @@ public interface ConnectionManager {
 	 
 	public void importList(ArrayList<Connection> readConnections);
 
-	public void setPmanager(ProfileManager profiles); 
-	
+	public void setPmanager(ProfileManager profiles);
+
 	public void removeConnections(int ID) throws NoParentException;
 
 }

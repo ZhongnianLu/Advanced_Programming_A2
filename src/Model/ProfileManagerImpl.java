@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.ProfileNotFoundException;
 import Interfaces.ProfileManager;
 
 /*
@@ -161,14 +162,21 @@ public class ProfileManagerImpl implements ProfileManager {
 	}
 	
 	
-	public Profile searchProfile(int ID) {
+	public Profile searchProfile(int ID) throws ProfileNotFoundException {
 		
+		boolean success = false;
 		for(Profile profile : profiles) {
 			
 			if(profile.getID() == ID) {
 				
+				success = true;
 				return profile;
 			}
+		}
+		
+		if(success == false) {
+			
+			throw new ProfileNotFoundException("Can't find the profile in database.");
 		}
 		
 		return null;
@@ -177,3 +185,4 @@ public class ProfileManagerImpl implements ProfileManager {
 
 
 }
+

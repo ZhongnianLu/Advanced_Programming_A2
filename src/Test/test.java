@@ -147,9 +147,19 @@ public class test {
 ////		    System.out.println(e.getMessage());
 ////		}
 //		
+		
+		//test add colleague connection
 		try {
-			conns.addConnection(1,2,3);
+			conns.addConnection(1,3,3);
 			System.out.println("1, 2, success!! colleague");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		//test add classmates connection
+		try {
+			conns.addConnection(1,6,4);
+			System.out.println("1, 6, success!! classmates");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

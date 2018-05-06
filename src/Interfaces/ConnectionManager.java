@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Exceptions.NoParentException;
 import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
+import Exceptions.ProfileNotFoundException;
 import Exceptions.RepeatException;
 import Exceptions.TooYoungException;
 import Model.Connection;
@@ -18,7 +19,7 @@ public interface ConnectionManager {
 	
 	public void addConnection(int ID1, int ID2, int connectionType) throws  Exception; 
 			
-	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException;
+	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException;
 	
 	public ArrayList<Connection> get_Clist();
 	
@@ -32,6 +33,6 @@ public interface ConnectionManager {
 
 	public void setPmanager(ProfileManager profiles);
 
-	public void removeConnections(int ID) throws NoParentException;
+	public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException;
 
 }

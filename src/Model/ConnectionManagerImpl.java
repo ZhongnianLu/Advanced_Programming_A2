@@ -6,6 +6,7 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 import Exceptions.NoParentException;
 import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
+import Exceptions.ProfileNotFoundException;
 import Exceptions.RepeatException;
 import Exceptions.TooYoungException;
 import Interfaces.ConnectionManager;
@@ -44,6 +45,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     * Connection type 4: ClassmatesConnection
     */
     public void addConnection(int ID_1, int ID_2, int connectionType) throws Exception  {
+    	
     	Profile person1 = Pmanager.searchProfile(ID_1);
 		Profile person2 = Pmanager.searchProfile(ID_2);
 		
@@ -56,7 +58,11 @@ public class ConnectionManagerImpl implements ConnectionManager{
 			addConnect = new Couple_Connection(person1,person2);
 		}else if(connectionType == 3){
 			addConnect = new Colleagues_Connection(person1,person2);
+		}else if(connectionType == 4) {
+			addConnect = new Classmates_Connection(person1, person2);
 		}
+		
+		
 		//check whether the couple connection is valid by calling age check method 
 		addConnect.check(c_list);
 		addConnect.repeat_check(c_list);
@@ -66,7 +72,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
 	
 	// add new parent connection by passing three IDs including parents and child
-    public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException{
+    public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException{
 	    			
 		Profile person1 = Pmanager.searchProfile(ID_1);
 		Profile person2 = Pmanager.searchProfile(ID_2);
@@ -92,7 +98,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	}
         
     //NEED TEST!!!!!!!!!!!!!!!!
-    public void removeConnections(int ID) throws NoParentException {
+    public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException {
     	
     	Profile targetProfile = Pmanager.searchProfile(ID);
     	

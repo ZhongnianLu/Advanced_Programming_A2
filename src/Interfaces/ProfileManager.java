@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+import Exceptions.ProfileNotFoundException;
 import Model.Profile;
 
 public interface ProfileManager {
@@ -26,6 +27,6 @@ public interface ProfileManager {
 
 	public void removeProfile(Profile person);
 	
-	public Profile searchProfile(int ID);
+	public Profile searchProfile(int ID) throws ProfileNotFoundException;
 
 }

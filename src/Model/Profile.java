@@ -14,6 +14,7 @@ public class Profile {
 	private String image;
 	private String status;
 	private int age;
+	private String gender;
 	private int ID; //ID for identifying purposes in connection list
 	
 	public Profile (String name, String status, int age) {
@@ -65,6 +66,10 @@ public class Profile {
 	
 	public void setID(int ID) {
 		this.ID=ID;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 	

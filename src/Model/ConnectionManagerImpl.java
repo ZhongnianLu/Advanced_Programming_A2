@@ -54,6 +54,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		if(connectionType == 1) {
 		//create a new connection with selected profiles
 			addConnect = new Friend_Connection(person1,person2);
+			checkFamily(addConnect);
 		}else if(connectionType == 2){
 			addConnect = new Couple_Connection(person1,person2);
 		}else if(connectionType == 3){
@@ -71,6 +72,8 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	}
 	
 	
+	
+
 	// add new parent connection by passing three IDs including parents and child
     public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException{
 	    			
@@ -97,7 +100,8 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	return c_list;
 	}
         
-    //NEED TEST!!!!!!!!!!!!!!!!
+    
+    //delete connections related to one person
     public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException {
     	
     	Profile targetProfile = Pmanager.searchProfile(ID);
@@ -197,6 +201,48 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		
     }
 
+
+    // need complete!!!
+    private void checkFamily(Connection addConnect) throws NotToBeFriendsException {
+	    	
+    	Profile friend1 = addConnect.getPerson1();
+    	Profile friend2 = addConnect.getPerson2();
+    	
+    	Profile person1_f1 = null;
+    	Profile person2_f1 = null;
+    	Profile person1_f2 = null;
+    	Profile person2_f2 = null;
+    	
+    	if(search_clist(friend1) != null) {
+    		
+    		for(Connection connection : search_clist(friend1)) {
+    			if(connection instanceof Parent_Connection && connection.getChild().getID() == friend1.getID()) {
+    	    		person1_f1 = connection.getPerson1();
+    	    		person1_f2 = connection.getPerson2();
+        		}
+        	}
+    	}
+    	
+    	if(search_clist(friend2) != null) {
+    		
+    		for(Connection connection : search_clist(friend2)) {
+        		if(connection instanceof Parent_Connection && connection.getChild().getID() == friend2.getID()) {
+        			person2_f1 = connection.getPerson1();
+    	    		person2_f2 = connection.getPerson2();
+    	    	}
+        	}
+    	}
+    	
+    	if(person1_f1!=null && person1_f2 != null && person2_f2 != null && person2_f1 != null) {
+    		if(
+    			(person1_f1.getID() == person2_f1.getID() && person1_f2.getID() == person2_f2.getID()) ||
+    			(person1_f1.getID() == person2_f2.getID() && person1_f2.getID() == person2_f1.getID())) {
+    		
+            		throw new NotToBeFriendsException("Two childs in the same family can't become friends. ");
+    		
+           	}
+    	}
+	}
     
     
     // Checking tool to help search method above: identify if a profile already included in the result of search
@@ -216,6 +262,25 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	
     	return repeat;
     }
+    
+	/* Input profile and iterates through their connections, returning a list of parent connections */
+ 	public ArrayList<Connection> getRelations(int id) throws ProfileNotFoundException{
+ 		
+ 		Profile prof = Pmanager.searchProfile(id);
+ 		 		
+ 		ArrayList<Connection> friends = search_clist(prof);
+ 		
+ 		/* Create new list of connections and only add parent connections to it */
+ 		ArrayList<Connection> relations = new ArrayList<Connection>();		
+ 		for(int i = 0; i < friends.size(); i++) {
+ 			
+ 			if (friends.get(i) instanceof Parent_Connection) {
+ 				relations.add(friends.get(i));
+ 			}
+ 			
+ 		}
+ 		return relations;
+ 	}
 
 
     
@@ -238,6 +303,11 @@ public class ConnectionManagerImpl implements ConnectionManager{
 
 		Pmanager = profiles;
 	}
+
+
+	
+	
+
 
 }
     

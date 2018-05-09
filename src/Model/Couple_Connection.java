@@ -1,6 +1,7 @@
 package Model;
 import java.util.ArrayList;
 
+import Exceptions.NoAvailableException;
 import Exceptions.NotToBeCoupledException;
 
 /*
@@ -22,7 +23,7 @@ public class Couple_Connection extends Connection{
 	//Override check method from super class. 
 	//Each person in a couple can't exist in other couple connections.
 	@Override
-	public void check(ArrayList<Connection> c_list) throws NotToBeCoupledException {
+	public void check(ArrayList<Connection> c_list) throws NotToBeCoupledException, NoAvailableException {
 		
 		//Check legal age
 		if(getPerson1().getAge() < 16 || getPerson2().getAge() <16 ) {
@@ -50,7 +51,7 @@ public class Couple_Connection extends Connection{
 		    			|| (person_x.getID() == getPerson2().getID() || person_y.getID() == getPerson1().getID())
 		    			) {
 				
-		    		throw new NotToBeCoupledException("At least one person in this connectionn is already "
+		    		throw new NoAvailableException("At least one person in this connectionn is already "
 		    				+ "in a couple connection");
 			    }
 		    }

@@ -139,7 +139,7 @@ public class Parent_Connection extends Connection {
     /* Due to the child is extra to normal connection, 
 	*  this method check three profiles in parent connection and override method in super class
 	*/
-	public  boolean in (Profile target){
+	public  boolean hasProfile (Profile target){
 		
 		boolean in = false;
 		
@@ -151,6 +151,13 @@ public class Parent_Connection extends Connection {
 		}	
 		
 		return in;
+		
+	}
+	
+	
+	
+	//Need to be complete
+	public void alreadyInFamily(Profile target, ArrayList<Connection> c_list) {
 		
 	}
 

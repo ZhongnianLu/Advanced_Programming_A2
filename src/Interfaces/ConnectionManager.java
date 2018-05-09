@@ -34,5 +34,7 @@ public interface ConnectionManager {
 	public void setPmanager(ProfileManager profiles);
 
 	public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException;
+	
+	public ArrayList<Connection> getRelations(int ID) throws Exception;
 
 }

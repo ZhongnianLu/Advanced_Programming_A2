@@ -22,32 +22,37 @@ public  class Friend_Connection extends Connection{
 	//Override check method from super class. Friend connections include dependent friend and adult friend.
 	public void check(ArrayList<Connection> c_list) throws NotToBeFriendsException, TooYoungException {
 	
+		int age_p1 = getPerson1().getAge();
+		int age_p2 = getPerson1().getAge();
+
+		
 		//check dependent friend
-	    if(getPerson1().getAge() >= 16 && getPerson2().getAge() >= 16) {
+	    if(age_p1 >= 16 && age_p2 >= 16) {
 			
 		}
-		else if(getPerson1().getAge() < 16 && getPerson2().getAge() < 16
-				                      && getPerson1().getAge() > 2 
-				                      && getPerson2().getAge() > 2) {
+		else if(age_p1 < 16 && age_p2 < 16
+				                      && age_p1 > 2 
+				                      && age_p2 > 2) {
 			
-			if(getPerson1().getAge() > getPerson2().getAge()) {
+			if(age_p1 > age_p2) {
 				
-				if(getPerson1().getAge() - getPerson2().getAge() > 3) {
+				if(age_p1 - age_p2 > 3) {
 					
 					throw new NotToBeFriendsException("Can't connect two" + 
 							" children with an age gap larger than 3");
 				}
 			}
 			
-			if(getPerson1().getAge() < getPerson2().getAge()) {
+			if(age_p1 < age_p2) {
 				
-				if(getPerson2().getAge() - getPerson1().getAge() > 3) {
+				if(age_p2 - age_p1 > 3) {
 				
 					throw new NotToBeFriendsException("Can't connect two"
-							+ " children with an age gap larger than 3");				}
+							+ " children with an age gap larger than 3");				
+				}
 			}
 			
-		}else if(getPerson1().getAge() < 2 || getPerson2().getAge() < 2){
+		}else if(age_p1 < 2 || age_p2 < 2){
 			
 			throw new NotToBeFriendsException("Can't make friend with a young child");
 		
@@ -58,6 +63,9 @@ public  class Friend_Connection extends Connection{
 		
 		
     }
+
+
+
 
 }
 	

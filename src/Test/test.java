@@ -63,12 +63,12 @@ public class test {
 //			System.out.println(e.getMessage());
 //		}
 		
-//		try {
-//			conns.addConnection(2,1,1);
-//			System.out.println("1, 2, success!! friend");
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		try {
+			conns.addConnection(2,1,1);
+			System.out.println("1, 2, success!! friend");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 //		
 //		try {
 //			conns.addConnection(1,2,1);
@@ -100,41 +100,44 @@ public class test {
 			System.out.println(e.getMessage());
 		}
 //		
+		
+//		try {
+//			conns.addConnection(7,8, 2);
+//			System.out.println("7,8 success!! couple");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//		
+		
 		try {
 			conns.addConnection(7,8, 2);
 			System.out.println("7,8 success!! couple");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+//		
+//		
 		try {
-			conns.addConnection(7,9, 2);
-			System.out.println("7,8 success!! couple");
+			conns.addParentConnection(1,9,4 );
+			System.out.println("1, 9, 4 success!! parent");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 //		
-//		
-//		try {
-//			conns.addParentConnection(1,9,4 );
-//			System.out.println("1, 9, 4 success!! parent");
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		
-////		try {
-////			conns.addParentConnection(7, 9, 3);
-////			System.out.println("7,8, 3 success!! parent");
-////		} catch (Exception e) {
-////			System.out.println(e.getMessage());
-////		}
-//		
-//		try {
-//			conns.addParentConnection(7, 8, 3);
-//		    System.out.println("7,8, 3 success!! parent");
-//		} catch (Exception e) {
-//		    System.out.println(e.getMessage());
-//		}
+		try {
+			conns.addParentConnection(7, 8, 4);
+			System.out.println("7, 8, 4 success!! parent");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		try {
+			conns.addConnection(3,4, 1);
+		    System.out.println("3, 4,  success!! friend");
+		} catch (Exception e) {
+		    System.out.println(e.getMessage());
+		}
 //		
 //		//delete
 //		
@@ -148,26 +151,36 @@ public class test {
 ////		}
 //		
 		
-		//test add colleague connection
-		try {
-			conns.addConnection(1,3,3);
-			System.out.println("1, 2, success!! colleague");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+//		//test add colleague connection
+//		try {
+//			conns.addConnection(1,3,3);
+//			System.out.println("1, 2, success!! colleague");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 		
-		//test add classmates connection
-		try {
-			conns.addConnection(1,6,4);
-			System.out.println("1, 6, success!! classmates");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-//		
-//		
-//		
-//		
-//		
-}
-//
+//		//test add classmates connection
+//		try {
+//			conns.addConnection(1,6,4);
+//			System.out.println("1, 6, success!! classmates");
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+		
+		
+		//test getRelations
+//		try {
+//			ArrayList<Connection> relations = conns.getRelations(3);
+//			for(Connection connection : relations) {
+//				System.out.println(connection.getPerson1().getName() + 
+//						connection.getPerson2().getName() + 
+//						connection.getChild().getName());
+//			}
+//		}catch(Exception e) {
+//			
+//			System.out.println(e.getMessage());
+//			
+//		}
+		
+	}
 }

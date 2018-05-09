@@ -19,7 +19,7 @@ public interface ConnectionManager {
 	
 	public void addConnection(int ID1, int ID2, int connectionType) throws  Exception; 
 			
-	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException;
+	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
 	
 	public ArrayList<Connection> get_Clist();
 	
@@ -35,6 +35,6 @@ public interface ConnectionManager {
 
 	public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException;
 	
-	public ArrayList<Connection> getRelations(int ID) throws Exception;
+	public ArrayList<Connection> getRelations(int ID, boolean checkParent) throws Exception;
 
 }

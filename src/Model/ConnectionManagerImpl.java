@@ -44,7 +44,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     * Connection type 3: colleagueConnection
     * Connection type 4: ClassmatesConnection
     */
-    public void addConnection(int ID_1, int ID_2, int connectionType) throws Exception  {
+    public void addConnection(int ID_1, int ID_2, int connectionType) throws Exception   {
     	
     	Profile person1 = Pmanager.searchProfile(ID_1);
 		Profile person2 = Pmanager.searchProfile(ID_2);
@@ -64,7 +64,6 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		}
 		
 		
-		//check whether the couple connection is valid by calling age check method 
 		addConnect.check(c_list);
 		addConnect.repeat_check(c_list);
 		c_list.add(addConnect);
@@ -75,7 +74,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 	
 
 	// add new parent connection by passing three IDs including parents and child
-    public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException{
+    public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException{
 	    			
 		Profile person1 = Pmanager.searchProfile(ID_1);
 		Profile person2 = Pmanager.searchProfile(ID_2);
@@ -87,6 +86,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		
 		addConnect.check(c_list);
 		addConnect.repeat_check(c_list);
+		getRelations(ID_child, true);
 		c_list.add(addConnect);
 	
     }
@@ -264,7 +264,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     }
     
 	/* Input profile and iterates through their connections, returning a list of parent connections */
- 	public ArrayList<Connection> getRelations(int id) throws ProfileNotFoundException{
+ 	public ArrayList<Connection> getRelations(int id, boolean checkParent) throws ProfileNotFoundException, NoParentException{
  		
  		Profile prof = Pmanager.searchProfile(id);
  		 		
@@ -272,10 +272,15 @@ public class ConnectionManagerImpl implements ConnectionManager{
  		
  		/* Create new list of connections and only add parent connections to it */
  		ArrayList<Connection> relations = new ArrayList<Connection>();		
- 		for(int i = 0; i < friends.size(); i++) {
+ 		for(Connection connection : friends) {
  			
- 			if (friends.get(i) instanceof Parent_Connection) {
- 				relations.add(friends.get(i));
+ 			if (connection instanceof Parent_Connection) {
+ 				relations.add(connection);
+ 				if(checkParent == true && connection.getChild().getID() == id) {
+ 					
+ 					throw new NoParentException("The child already has parents.");
+ 				}
+ 			
  			}
  			
  		}

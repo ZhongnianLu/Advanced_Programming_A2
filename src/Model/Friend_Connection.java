@@ -23,7 +23,7 @@ public  class Friend_Connection extends Connection{
 	public void check(ArrayList<Connection> c_list) throws NotToBeFriendsException, TooYoungException {
 	
 		int age_p1 = getPerson1().getAge();
-		int age_p2 = getPerson1().getAge();
+		int age_p2 = getPerson2().getAge();
 
 		
 		//check dependent friend

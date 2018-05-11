@@ -74,10 +74,10 @@ public class test {
 //		}
 		
 		try {
-			conns.addConnection(2,1,1);
-			System.out.println("1, 2, success!! friend");
+			conns.addConnection(2,4,1);
+			System.out.println("2,4, success!! friend");
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getClass());
 		}
 //		
 //		try {

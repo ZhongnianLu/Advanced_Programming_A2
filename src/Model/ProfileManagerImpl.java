@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.NoSuchAgeException;
 import Exceptions.ProfileNotFoundException;
 import Interfaces.ProfileManager;
 
@@ -32,7 +33,10 @@ public class ProfileManagerImpl implements ProfileManager {
 		return profiles;
 	}
 	
-	public void addProfile(Profile add) {
+	public void addProfile(Profile add) throws NoSuchAgeException{
+		if((add.getAge()) >= 150) {
+			throw new NoSuchAgeException("Age can't be over 150 years. ");
+		}
 		profiles.add(add);
 	}
 	
@@ -41,7 +45,7 @@ public class ProfileManagerImpl implements ProfileManager {
 	}
 	
 	/* ArrayList given to fill an empty list or override an existing list */
-	public void importList(ArrayList<Profile> profiles) {
+	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException {
 		int len = profiles.size();
 		
 		/* Iterate over the list to override and delete all entries */
@@ -51,7 +55,11 @@ public class ProfileManagerImpl implements ProfileManager {
 		
 		/* Iterate over given list and add entries to main list */
 		for (int i = 0; i < len; i++) {
-			this.addProfile(profiles.get(i));
+			try {
+				this.addProfile(profiles.get(i));
+			} catch (NoSuchAgeException e) {
+				throw new NoSuchAgeException("Age can't be over 150 years.");
+			}
 		}
 		
 	}

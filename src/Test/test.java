@@ -1,6 +1,7 @@
 package Test;
 
 import Exceptions.NoParentException;
+import Exceptions.NoSuchAgeException;
 import Exceptions.RepeatException;
 import Interfaces.ConnectionManager;
 import Interfaces.ProfileManager;
@@ -42,15 +43,24 @@ public class test {
 		Profile p9 = new Profile("H", 40);
 		p9.setID(9);
 		
-		profiles.addProfile(p1);
-		profiles.addProfile(p2);
-		profiles.addProfile(p3);
-		profiles.addProfile(p4);
-		profiles.addProfile(p5);
-		profiles.addProfile(p6);
-		profiles.addProfile(p7);
-		profiles.addProfile(p8);
-		profiles.addProfile(p9);
+		Profile p10 = new Profile("I", 240);
+		p10.setID(10);
+		
+		try {
+			profiles.addProfile(p1);
+			profiles.addProfile(p2);
+			profiles.addProfile(p3);
+			profiles.addProfile(p4);
+			profiles.addProfile(p5);
+			profiles.addProfile(p6);
+			profiles.addProfile(p7);
+			profiles.addProfile(p8);
+			profiles.addProfile(p9);
+			profiles.addProfile(p10);
+		} catch (NoSuchAgeException e1) {
+			System.out.println(e1.getMessage());
+			}
+	
 
 		
 		ConnectionManager conns = new ConnectionManagerImpl(); 
@@ -139,9 +149,9 @@ public class test {
 		    System.out.println(e.getMessage());
 		}
 //		
-//		//delete
 //		
-//		
+		
+		//delete
 ////		try {
 ////			conns.removeConnections(3);
 ////			System.out.println("delete 1 success!");

@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+import Exceptions.NoSuchAgeException;
 import Exceptions.ProfileNotFoundException;
 import Model.Profile;
 
 public interface ProfileManager {
 	
-	public void importList(ArrayList<Profile> profiles);
+	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException;
 	
 	public boolean uniqueName(String name);
 	
@@ -23,7 +24,7 @@ public interface ProfileManager {
 
 	public ArrayList<Profile> get_Plist();
 
-	public void addProfile(Profile person);
+	public void addProfile(Profile person) throws NoSuchAgeException;
 
 	public void removeProfile(Profile person);
 	

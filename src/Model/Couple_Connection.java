@@ -28,7 +28,7 @@ public class Couple_Connection extends Connection{
 		//Check legal age
 		if(getPerson1().getAge() < 16 || getPerson2().getAge() <16 ) {
 			
-			throw new NotToBeCoupledException("At least one person in this "
+			throw new NoAvailableException("At least one person in this "
 					+ "couple connection is not in legal age");
 		}
 		
@@ -41,7 +41,6 @@ public class Couple_Connection extends Connection{
 			
 			//create a boolean to help find target connection that contains two IDs we inputed 
 			person_x = c_list.get(i).getPerson1();
-			
 			person_y = c_list.get(i).getPerson2();
 			
 			
@@ -51,14 +50,10 @@ public class Couple_Connection extends Connection{
 		    			|| (person_x.getID() == getPerson2().getID() || person_y.getID() == getPerson1().getID())
 		    			) {
 				
-		    		throw new NoAvailableException("At least one person in this connectionn is already "
+		    		throw new NotToBeCoupledException("At least one person in this connectionn is already "
 		    				+ "in a couple connection");
 			    }
 		    }
 		}
 	}
 }
-
-	
-	
-

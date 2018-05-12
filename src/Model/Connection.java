@@ -60,22 +60,26 @@ public abstract class Connection {
 	
 	//Check whether this connection already added in the connection list
 	public void repeat_check(ArrayList<Connection> c_list) throws RepeatException {
-				
+		
+		
 		for(int i = 0;i < c_list.size();i++) {
+						
+			String name1 = c_list.get(i).getPerson1().getName();
+			String name2 = c_list.get(i).getPerson2().getName();
 			
-			if(c_list.get(i).getPerson1().getID() == getPerson1().getID() 
-					&& c_list.get(i).getPerson2().getID() == getPerson2().getID()
+			if(name1.equals(getPerson1().getName())  
+					&& name2.equals(getPerson2().getName()) 
 					&& c_list.get(i).getClass().equals(getClass())){
 			 
 				
-				throw new RepeatException("ID Repeated");
+				throw new RepeatException("Profile Repeated");
 			}
 	
-			if(c_list.get(i).getPerson2().getID() == getPerson1().getID() 
-					&& c_list.get(i).getPerson1().getID() == getPerson2().getID()
+			if(name2.equals(getPerson1().getName()) 
+					&& name1.equals(getPerson2().getName())
 					&& c_list.get(i).getClass().equals(getClass())){
 				
-				throw new RepeatException("ID Repeated");
+				throw new RepeatException("Profile Repeated");
 								
 			}
 		}
@@ -103,8 +107,8 @@ public abstract class Connection {
 		
      	boolean in=false;
 	
-	    if(getPerson1().getID() == target.getID()
-	    		||getPerson2().getID() == target.getID()) {
+	    if(getPerson1().getName().equals(target.getName())
+	    		||getPerson2().getName() == target.getName()) {
 		   
 	    	in = true;
 	    }

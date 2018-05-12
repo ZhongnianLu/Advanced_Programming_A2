@@ -46,11 +46,11 @@ public class Couple_Connection extends Connection{
 			
 			if(c_list.get(i) instanceof Couple_Connection) {
 				
-		    	if((person_x.getID() == getPerson1().getID() || person_y.getID() == getPerson2().getID())
-		    			|| (person_x.getID() == getPerson2().getID() || person_y.getID() == getPerson1().getID())
+		    	if((person_x.getName().equals(getPerson1().getName()) || person_y.getName().equals(getPerson2().getName()))
+		    			|| (person_x.getName().equals(getPerson2().getName()) || person_y.getName().equals(getPerson1().getName()))
 		    			) {
 				
-		    		throw new NotToBeCoupledException("At least one person in this connectionn is already "
+		    		throw new NotToBeCoupledException("At least one person in this connection is already "
 		    				+ "in a couple connection");
 			    }
 		    }

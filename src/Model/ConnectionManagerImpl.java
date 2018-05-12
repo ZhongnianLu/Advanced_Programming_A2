@@ -161,14 +161,14 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	// check whether the person has any independent
     	for(Connection connection : search_clist(targetProfile)) {
     		
-    		System.out.println("Person1: "+connection.getPerson1().getID());
-        	System.out.println("Person2: " + connection.getPerson2().getID());
+//    		System.out.println("Person1: "+connection.getPerson1().getID());
+//        	System.out.println("Person2: " + connection.getPerson2().getID());
        // 	System.out.print("+" +connection.getChild().getID());
        
 
     		if(connection instanceof Parent_Connection && (
-    				connection.getPerson1().getID() == targetProfile.getID() || 
-    				connection.getPerson2().getID() == targetProfile.getID())) {
+    				connection.getPerson1().getName().equals(targetProfile.getName()) || 
+    				connection.getPerson2().getName().equals(targetProfile.getName()))) {
     
     			throw new NoParentException("Can't delete a person with at least one dependent");
     			
@@ -205,14 +205,14 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		    if(tem.hasProfile(target) == true) {
 	
 		        if((profile_repeat(tem.getPerson1(), contain) == false)
-				    && tem.getPerson1().getID() != target.getID()) {
+				    && !(tem.getPerson1().getName().equals(target.getName()))) {
 			
  		 	      contain.add(tem.getPerson1());	
 		
 		        }
 		
 		        if((profile_repeat(tem.getPerson2(), contain) == false) 
-				    && tem.getPerson2().getID() != target.getID()) {
+				    && !(tem.getPerson2().getName().equals( target.getName()))) {
 			
 			       contain.add(tem.getPerson2());	
 		
@@ -222,7 +222,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		        if(tem instanceof Parent_Connection) {
 		    	
 				    if((profile_repeat(tem.getChild(), contain) == false)
-					    && tem.getChild().getID() != target.getID()) {
+					    && !(tem.getChild().getName().equals (target.getName()))) {
 				
 				     contain.add(c_list.get(i).getChild());
 			        }
@@ -296,7 +296,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	if(search_clist(friend1) != null) {
     		
     		for(Connection connection : search_clist(friend1)) {
-    			if(connection instanceof Parent_Connection && connection.getChild().getID() == friend1.getID()) {
+    			if(connection instanceof Parent_Connection && connection.getChild().getName().equals(friend1.getName())) {
     	    		person1_f1 = connection.getPerson1();
     	    		person1_f2 = connection.getPerson2();
         		}
@@ -306,7 +306,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	if(search_clist(friend2) != null) {
     		
     		for(Connection connection : search_clist(friend2)) {
-        		if(connection instanceof Parent_Connection && connection.getChild().getID() == friend2.getID()) {
+        		if(connection instanceof Parent_Connection && connection.getChild().getName().equals(friend2.getName())) {
         			person2_f1 = connection.getPerson1();
     	    		person2_f2 = connection.getPerson2();
     	    	}
@@ -315,8 +315,8 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	
     	if(person1_f1!=null && person1_f2 != null && person2_f2 != null && person2_f1 != null) {
     		if(
-    			(person1_f1.getID() == person2_f1.getID() && person1_f2.getID() == person2_f2.getID()) ||
-    			(person1_f1.getID() == person2_f2.getID() && person1_f2.getID() == person2_f1.getID())) {
+    			(person1_f1.getName().equals(person2_f1.getName()) && person1_f2.getName().equals(person2_f2.getName())) ||
+    			(person1_f1.getName().equals(person2_f2.getName()) && person1_f2.getName().equals(person2_f1.getName()))) {
     		
             		throw new NotToBeFriendsException("Two childs in the same family can't become friends. ");
     		
@@ -333,7 +333,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	
     	for(int i = 0;i < check_plist.size();i++) {
     		
-    		if(check_plist.get(i).getID() == target.getID()) {
+    		if(check_plist.get(i).getName().equals(target.getName())) {
     			
     			repeat = true;
     		}

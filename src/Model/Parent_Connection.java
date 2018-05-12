@@ -72,15 +72,15 @@ public class Parent_Connection extends Connection {
 			person_y = c_list.get(i).getPerson2();
 			
 			
-			if(person_x.getID() == getPerson1().getID() 
-					&& person_y.getID() == getPerson2().getID()) {
+			if(person_x.getName().equals(getPerson1().getName()) 
+					&& person_y.getName().equals(getPerson2().getName())) {
 				
 				connection_check = true;
 			
 			}
 			
-			if(person_x.getID() == getPerson2().getID() 
-					&& person_y.getID() == getPerson1().getID()) {
+			if(person_x.getName().equals(getPerson2().getName()) 
+					&& person_y.getName().equals(getPerson1().getName())) {
 				
 				connection_check = true;
 			
@@ -111,21 +111,21 @@ public class Parent_Connection extends Connection {
 			
 			if(c_list.get(i) instanceof Parent_Connection) {
 			
-    			if(c_list.get(i).getChild().getID() == getChild().getID()){
+    			if(c_list.get(i).getChild().getName().equals(getChild().getName())){
 				
 	    			child_repeat = true;
 			
 		    	}
 			
-    		 	if(c_list.get(i).getPerson1().getID() == getPerson1().getID() 
-	    				&& c_list.get(i).getPerson2().getID() == getPerson2().getID()
+    		 	if(c_list.get(i).getPerson1().getName().equals(getPerson1().getName()) 
+	    				&& c_list.get(i).getPerson2().getName().equals(getPerson2().getName())
 		    			&& child_repeat == true){
 				
 	    			throw new RepeatException("Repeated");
 		    	}
 			
-    			if(c_list.get(i).getPerson2().getID() == getPerson1().getID() 
-	    				&& c_list.get(i).getPerson1().getID() == getPerson2().getID()
+    			if(c_list.get(i).getPerson2().getName().equals(getPerson1().getName()) 
+	    				&& c_list.get(i).getPerson1().getName().equals(getPerson2().getName())
 		    			&& child_repeat == true){
 			
 	    			throw new RepeatException("Repeated");
@@ -143,9 +143,9 @@ public class Parent_Connection extends Connection {
 		
 		boolean in = false;
 		
-		if(getPerson1().getID() == target.getID() 
-				|| getPerson2().getID() == target.getID()
-				|| getChild().getID() == target.getID()) {
+		if(getPerson1().getName().equals(target.getName()) 
+				|| getPerson2().getName().equals(target.getName())
+				|| getChild().getName().equals(target.getName())) {
 			
 			in = true;
 		}	

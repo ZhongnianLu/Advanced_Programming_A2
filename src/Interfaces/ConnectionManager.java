@@ -39,4 +39,6 @@ public interface ConnectionManager {
 	
 	public ArrayList<Connection> getRelations(int ID, boolean checkParent) throws Exception;
 
+	public void addConnection(String name, String name2, String type) throws Exception;
+
 }

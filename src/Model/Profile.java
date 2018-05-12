@@ -14,18 +14,19 @@ public class Profile {
 	private String image;
 	private String status;
 	private int age;
-	private String gender;
 	private int ID; //ID for identifying purposes in connection list
+	private String state;
 	
-	public Profile (String name, String status, int age) {
+	public Profile (String name, String image, String status, int age, String state) {
 		this.name = name;
-		this.image = "default.png";
+		this.image = image;
 		this.status = status;
 		this.age = age;
+		this.state = state;
 	}
 	
 	public Profile (String name, int age) {
-		this(name, null, age);
+		this(name, null, null, age, null);
 	}
 	
 	public String getName() {
@@ -47,29 +48,29 @@ public class Profile {
 	public int getID() {
 		return this.ID;
 	}
+	
+	public String getState() {
+		return state;
+	}
 
 	public void setName(String name) {
 		this.name = name;
-		System.out.println("Your name has been changed");
+	//	System.out.println("Your name has been changed");
 	}
 	
 	public void setStatus(String status) {
 		this.status = status;
-		System.out.println("Your status has been changed");
+	//	System.out.println("Your status has been changed");
 
 	}
 	
 	public void setImage(String image) {
 		this.image = image;
-		System.out.println("Your image has been changed");
+	//	System.out.println("Your image has been changed");
 	}
 	
 	public void setID(int ID) {
 		this.ID=ID;
-	}
-	
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 	
 	

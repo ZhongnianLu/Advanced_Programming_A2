@@ -15,18 +15,20 @@ public class Profile {
 	private String status;
 	private int age;
 	private int ID; //ID for identifying purposes in connection list
+	private String gender;
 	private String state;
 	
-	public Profile (String name, String image, String status, int age, String state) {
+	public Profile (String name, String image, String status, String gender,  int age, String state) {
 		this.name = name;
 		this.image = image;
 		this.status = status;
+		this.gender = gender;
 		this.age = age;
 		this.state = state;
 	}
 	
 	public Profile (String name, int age) {
-		this(name, null, null, age, null);
+		this(name, null, null, null, age, null);
 	}
 	
 	public String getName() {
@@ -47,6 +49,10 @@ public class Profile {
 	
 	public int getID() {
 		return this.ID;
+	}
+	
+	public String getGender() {
+		return gender;
 	}
 	
 	public String getState() {
@@ -78,3 +84,4 @@ public class Profile {
 	
 	
 }
+

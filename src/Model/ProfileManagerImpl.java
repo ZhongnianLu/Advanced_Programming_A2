@@ -163,7 +163,7 @@ public class ProfileManagerImpl implements ProfileManager {
 		String status = scan.nextLine();
 		
 		/* create profile object and set ID */
-		Profile person = new Profile(name, status, null, age, null); 
+		Profile person = new Profile(name, status, null, null, age, null); 
 		person.setID(get_Plist().size()+1); 
 		
 		return person;			

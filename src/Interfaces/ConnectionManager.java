@@ -21,6 +21,8 @@ public interface ConnectionManager {
 			
 	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
 	
+	public void addParentConnection(String person1, String childname) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
+	
 	public ArrayList<Connection> get_Clist();
 	
 	public ArrayList<Profile> search(Profile target);

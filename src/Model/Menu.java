@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.NoParentException;
+import Exceptions.RepeatException;
 import Interfaces.ConnectionManager;
 import Interfaces.ProfileManager;
 
@@ -135,14 +137,13 @@ public class Menu {
 					throw new IOException("Error: Progrfile is null. Exiting to main menu.");
 				}
 				
-				try{
-					conns.addParentConnection(parent1.getID(),parent2.getID(), person.getID());
+				try {
+				conns.addParentConnection(parent1.getID(),parent2.getID(), person.getID());
 					System.out.println("\nProfile created");
-				} catch(Exception e) {
-					System.out.println(e.getMessage());
+				}catch(Exception e){
 					profiles.removeProfile(person);
-					throw new IOException("\nError: Parents must be connected");
-				}
+					System.out.println(e.getMessage());
+				}	
 			} else {
 				System.out.println("\nProfile created");
 			}
@@ -179,8 +180,12 @@ public class Menu {
 			
 			/* If a dependents then check if they have the same parents */
 			if (person1.getAge() < 16 && person2.getAge() < 16 && diffParents(person1, person2)) {
-					try(conns.addFriendConnection(person1.getID(), person2.getID())) {
+					try {
+						conns.addFriendConnection(person1.getID(), person2.getID());
 						System.out.println(person1.getName() + " is now friends with " + person2.getName());
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
 					}
 			} else if (person1.getAge() >= 16 && person2.getAge() >= 16){
 				connectionMenu(person1, person2);
@@ -204,15 +209,22 @@ public class Menu {
 			option = display_Menu("Select Connection Type", options);
 			/* 1 selects friend connection */
 			if ( option == 1 ) {
-				if(conns.addFriendConnection(pers1.getID(), pers2.getID())) {
+				try {
+					conns.addFriendConnection(pers1.getID(), pers2.getID());
 					System.out.println(pers1.getName() + " is now friends with " + pers2.getName());
-				}else throw new IOException(pers1.getName() + " and " + pers2.getName() + " are already friends");
-			
+				}catch(Exception e) { 
+					System.out.println(e.getMessage());
+					throw new IOException(pers1.getName() + " and " + pers2.getName() + " are already friends");
+				}
 			/* 2 selects a couple connection */
 			} else if ( option == 2) {
-		    	if(conns.addCoupleConnection(pers1.getID(),  pers2.getID())) {
+		    	try {
+		    		conns.addCoupleConnection(pers1.getID(),  pers2.getID());
 		    		System.out.println(pers1.getName() + " and  " + pers2.getName() + " are now a couple");
-		    	} else throw new IOException("\nError: One or more persons are already coupled");
+		    	} catch(Exception e){
+		    		e.getMessage();
+		    		throw new IOException("\nError: One or more persons are already coupled");
+		    	}
 			
 		    /* 3 selects a parent connection */
 			} else if ( option == 3) {
@@ -253,9 +265,13 @@ public class Menu {
  		
  		/* Checks ages to make sure adults are older than the child, then creates parent connection */
  		if(parent1.getAge() > child.getAge() && parent2.getAge() > child.getAge()) {
- 			if(conns.addParentConnection(parent1.getID(), parent2.getID(), child.getID())) {
+ 			try {
+ 				conns.addParentConnection(parent1.getID(), parent2.getID(), child.getID());
  				System.out.println("\nProfile created");
- 			} else throw new IOException("\nError: Parents must be connected");
+ 			} catch (Exception e){
+ 				e.getMessage();
+ 				throw new IOException("\nError: Parents must be connected");
+ 			}
  		} else throw new IOException("\nError: Parents must be older than child");
  		
  	}

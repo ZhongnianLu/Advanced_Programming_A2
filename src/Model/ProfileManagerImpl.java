@@ -190,6 +190,27 @@ public class ProfileManagerImpl implements ProfileManager {
 		return null;
 		
 	}
+	
+	public Profile searchProfile(String name) throws ProfileNotFoundException {
+		
+		boolean success = false;
+		for(Profile profile : profiles) {
+			
+			if(profile.getName().equals(name)) {
+				
+				success = true;
+				return profile;
+			}
+		}
+		
+		if(success == false) {
+			
+			throw new ProfileNotFoundException("Can't find the profile in database.");
+		}
+		
+		return null;
+		
+	}
 
 
 }

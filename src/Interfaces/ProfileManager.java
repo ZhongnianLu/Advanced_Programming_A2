@@ -28,8 +28,6 @@ public interface ProfileManager {
 
 	public void removeProfile(Profile person);
 	
-	public Profile searchProfile(int ID) throws ProfileNotFoundException;
-
 	public Profile searchProfile(String name) throws ProfileNotFoundException;
 
 }

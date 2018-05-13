@@ -164,32 +164,11 @@ public class ProfileManagerImpl implements ProfileManager {
 		
 		/* create profile object and set ID */
 		Profile person = new Profile(name, status, null, null, age, null); 
-		person.setID(get_Plist().size()+1); 
+//		person.setID(get_Plist().size()+1); 
 		
 		return person;			
 	}
 	
-	
-	public Profile searchProfile(int ID) throws ProfileNotFoundException {
-		
-		boolean success = false;
-		for(Profile profile : profiles) {
-			
-			if(profile.getID() == ID) {
-				
-				success = true;
-				return profile;
-			}
-		}
-		
-		if(success == false) {
-			
-			throw new ProfileNotFoundException("Can't find the profile in database.");
-		}
-		
-		return null;
-		
-	}
 	
 	public Profile searchProfile(String name) throws ProfileNotFoundException {
 		
@@ -211,6 +190,8 @@ public class ProfileManagerImpl implements ProfileManager {
 		return null;
 		
 	}
+
+
 
 
 }

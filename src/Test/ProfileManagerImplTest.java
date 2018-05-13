@@ -20,13 +20,10 @@ class ProfileManagerImplTest {
 
 	
 		Profile p1 = new Profile("A", 19);
-		p1.setID(1);
 		
 		Profile p2 = new Profile("AB", 17);
-		p2.setID(2);
 
 		Profile p3 = new Profile("B", 15);
-		p3.setID(3);
 		
 	}
 	
@@ -34,7 +31,6 @@ class ProfileManagerImplTest {
 	@Test
 	void testAddProfile() {
 		Profile p4 = new Profile("D", 180);
-		p4.setID(4);
 		assertThrows(NoSuchAgeException.class, () -> profiles.addProfile(p4));
 	}
 

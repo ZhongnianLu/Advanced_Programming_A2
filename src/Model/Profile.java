@@ -14,7 +14,6 @@ public class Profile {
 	private String image;
 	private String status;
 	private int age;
-	private int ID; //ID for identifying purposes in connection list
 	private String gender;
 	private String state;
 	
@@ -47,9 +46,6 @@ public class Profile {
 		return this.age;
 	}
 	
-	public int getID() {
-		return this.ID;
-	}
 	
 	public String getGender() {
 		return gender;
@@ -75,10 +71,7 @@ public class Profile {
 	//	System.out.println("Your image has been changed");
 	}
 	
-	public void setID(int ID) {
-		this.ID=ID;
-	}
-	
+
 	
 	
 	

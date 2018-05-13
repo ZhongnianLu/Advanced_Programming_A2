@@ -16,10 +16,8 @@ public interface ConnectionManager {
 	
 	
 	public void addConnection(Connection target);
-	
-	public void addConnection(int ID1, int ID2, int connectionType) throws  Exception; 
-			
-	public void addParentConnection(int ID_1,int ID_2,int ID_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
+				
+	public void addParentConnection(String name1,String name2,String name_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException, Exception;
 	
 	public void addParentConnection(String person1, String childname) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
 	
@@ -35,9 +33,9 @@ public interface ConnectionManager {
 
 	public void setPmanager(ProfileManager profiles);
 
-	public void removeConnections(int ID) throws NoParentException, ProfileNotFoundException;
+	public void removeConnections(String name) throws NoParentException, ProfileNotFoundException;
 	
-	public ArrayList<Connection> getRelations(int ID, boolean checkParent) throws Exception;
+	public ArrayList<Connection> getRelations(String name, boolean checkParent) throws Exception;
 
 	public void addConnection(String name, String name2, String type) throws Exception;
 

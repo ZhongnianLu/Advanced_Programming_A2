@@ -36,31 +36,25 @@ class ConnectionManagerImplTest {
 		conns.setPmanager(profiles);
 			
 		Profile p1 = new Profile("A", 19);
-		p1.setID(1);
 		
-		Profile p2 = new Profile("AB", 17);
-		p2.setID(2);
+		Profile p2 = new Profile("B", 17);
 
-		Profile p3 = new Profile("B", 15);
-		p3.setID(3);
+		Profile p3 = new Profile("C", 15);
 
-		Profile p4 = new Profile("C", 11);
-		p4.setID(4);
+		Profile p4 = new Profile("D", 11);
 		
-		Profile p5 = new Profile("D",3);
-		p5.setID(5);
+		Profile p5 = new Profile("E",3);
 		
-		Profile p6 = new Profile("E", 10);
-		p6.setID(6);
+		Profile p6 = new Profile("F", 10);
 		
-		Profile p7 = new Profile("F", 20);
-		p7.setID(7);
+		Profile p7 = new Profile("G", 20);
 		
-		Profile p8 = new Profile("G", 30);
-		p8.setID(8);
+		Profile p8 = new Profile("H", 30);
 		
-		Profile p9 = new Profile("H", 40);
-		p9.setID(9);
+		Profile p9 = new Profile("I", 40);
+		
+		Profile p10 = new Profile("J", 50);
+
 			
 		try {
 			profiles.addProfile(p1);
@@ -72,6 +66,8 @@ class ConnectionManagerImplTest {
 			profiles.addProfile(p7);
 			profiles.addProfile(p8);
 			profiles.addProfile(p9);
+			profiles.addProfile(p10);
+
 		} catch (NoSuchAgeException e1) {
 			System.out.println(e1.getMessage());
 			}
@@ -83,13 +79,13 @@ class ConnectionManagerImplTest {
 	void testAddConnectionIntIntInt1() {
 		
 		try {
-			conns.addConnection(2,1,1);
+			conns.addConnection("B","A","friends");
 		} catch (Exception e) {
 			e.getMessage();
 
 		}
 		
-		assertEquals(2, conns.get_Clist().get(0).getPerson1().getID());
+		assertEquals("B", conns.get_Clist().get(0).getPerson1().getName());
 
 		
 	}
@@ -98,31 +94,31 @@ class ConnectionManagerImplTest {
 	void testAddConnectionIntIntInt2() {
 
 		
-		assertThrows(TooYoungException.class, () -> conns.addConnection(2,4,1));
+		assertThrows(TooYoungException.class, () -> conns.addConnection("B","D","friends"));
 
 	}
 	
 	@Test
 	void testAddConnectionIntIntInt3() {
 		
-		assertThrows(NotToBeFriendsException.class, () -> conns.addConnection(3,4,1));
+		assertThrows(NotToBeFriendsException.class, () -> conns.addConnection("C","D","friends"));
 	}
 	
 	@Test
 	void testAddConnectionIntIntInt4() {
 		
 		try {
-			conns.addConnection(1,2,2);
+			conns.addConnection("A","B","couple");
 		} catch (Exception e) {
 			e.getClass()	;	
 		}
 		
-		assertThrows(NotToBeCoupledException.class, () -> conns.addConnection(1,9,2));
+		assertThrows(NotToBeCoupledException.class, () -> conns.addConnection("A","I","couple"));
 	}
 	
 	@Test
 	void testAddConnectionIntIntInt5() {
-		assertThrows(NoAvailableException.class, () -> conns.addConnection(4,7,2));
+		assertThrows(NoAvailableException.class, () -> conns.addConnection("D","G","couple"));
 
 
 	}
@@ -130,7 +126,7 @@ class ConnectionManagerImplTest {
 	@Test
 	void testAddParentConnection() {
 	
-		assertThrows(NoParentException.class, () -> conns.addParentConnection(1,7,5));
+		assertThrows(NoParentException.class, () -> conns.addParentConnection("A","G","E"));
 	}
 	
 	@Test
@@ -138,7 +134,7 @@ class ConnectionManagerImplTest {
 		
 		try {
 		
-			conns.addParentConnection(8,9,6);
+			conns.addParentConnection("I","J","F");
 
 		} catch (NoParentException e) {
 			e.printStackTrace();
@@ -153,7 +149,7 @@ class ConnectionManagerImplTest {
 			e.printStackTrace();
 		}
 	
-		assertThrows(NotToBeFriendsException.class, () -> conns.addConnection(6,4,1));
+		assertThrows(NotToBeFriendsException.class, () -> conns.addConnection("F","D","friends"));
 	}
 
 	
@@ -161,14 +157,14 @@ class ConnectionManagerImplTest {
 	void testRemoveConnections() {
 		
 		try {
-			conns.addConnection(8,9,2);
+			conns.addConnection("J","I","couple");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		try {
-			conns.addParentConnection(8,9,4);
+			conns.addParentConnection("I","J","D");
 		} catch (NoParentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,8 +177,11 @@ class ConnectionManagerImplTest {
 		} catch (NotToBeFriendsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		assertThrows(NoParentException.class, () -> conns.removeConnections(9));
+		assertThrows(NoParentException.class, () -> conns.removeConnections("I"));
 	}
 
 }

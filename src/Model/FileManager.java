@@ -51,18 +51,24 @@ public class FileManager {
 			String line;
 			
 			while((line = br.readLine())!=null) {
+				
+				try {
 				String[] tokens = line.split(",");
-				if(tokens[2].equals("friends")) {
-					cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "friends");
-				}else if(tokens[2].equals("couple")){
-					cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "couple");
-				}else if(tokens[2].equals("colleague")){	
-					cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "colleague");
-				}else if(tokens[2].equals("classmates") ) {
-					cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "classmates");
-				}else if(tokens[2].equals("parent")) {
-					cmanager.addParentConnection(tokens[0],tokens[1]);
+	    			if(tokens[2].equals("friends")) {
+	    				cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "friends");
+	    			}else if(tokens[2].equals("couple")){
+	    				cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "couple");
+	    			}else if(tokens[2].equals("colleague")){	
+	    				cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "colleague");
+	    			}else if(tokens[2].equals("classmates") ) {
+	    				cmanager.addConnection(pmanager.searchProfile(tokens[0]).getName(),pmanager.searchProfile(tokens[1]).getName(), "classmates");
+	    			}else if(tokens[2].equals("parent")) {
+	    				cmanager.addParentConnection(tokens[0],tokens[1]);
+	    			}
+				}catch(Exception e) {
+					
 				}
+			
 			}
 			
 			br.close();

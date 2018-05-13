@@ -17,7 +17,7 @@ public interface ConnectionManager {
 	
 	public void addConnection(Connection target);
 				
-	public void addParentConnection(String name1,String name2,String type) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException, Exception;
+	public void addParentConnection(String name1,String name2,String name_child) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException, Exception;
 	
 	public void addParentConnection(String person1, String childname) throws NoParentException, RepeatException, ProfileNotFoundException, NotToBeFriendsException;
 	

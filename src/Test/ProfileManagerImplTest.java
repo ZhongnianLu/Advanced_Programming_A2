@@ -11,6 +11,12 @@ import Interfaces.ProfileManager;
 import Model.Profile;
 import Model.ProfileManagerImpl;
 
+/*
+ * A junit test class to test restrictions built in ProfileManager
+ * 
+ * 
+ */
+
 class ProfileManagerImplTest {
 
 	ProfileManager profiles = new ProfileManagerImpl();  

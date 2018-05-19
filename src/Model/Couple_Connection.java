@@ -31,8 +31,7 @@ public class Couple_Connection extends Connection{
 			throw new NoAvailableException("At least one person in this "
 					+ "couple connection is not in legal age");
 		}
-		
-		
+	
 		// Check whether person in this couple connection is repeated in other couple connections
 		for(int i = 0;i < c_list.size();i++) {
 			
@@ -42,8 +41,7 @@ public class Couple_Connection extends Connection{
 			//create a boolean to help find target connection that contains two IDs we inputed 
 			person_x = c_list.get(i).getPerson1();
 			person_y = c_list.get(i).getPerson2();
-			
-			
+					
 			if(c_list.get(i) instanceof Couple_Connection) {
 				
 		    	if((person_x.getName().equals(getPerson1().getName()) || person_y.getName().equals(getPerson2().getName()))

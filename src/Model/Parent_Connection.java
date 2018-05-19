@@ -37,22 +37,6 @@ public class Parent_Connection extends Connection {
 	}
 	
 	
-	
-	//Method to access both parents and child included in a connection.
-	public ArrayList<Profile> getProfileInside(){
-		
-		linked_person.add(getPerson1());
-		
-		linked_person.add(getPerson2());
-
-		linked_person.add(getChild());
-		
-		return linked_person;
-
-	} 
-	
-
-	
     // Check whether added parent is valid or not
 	public void check(ArrayList<Connection> c_list) throws NoParentException {
 		
@@ -88,7 +72,7 @@ public class Parent_Connection extends Connection {
 			
 			//check whether the connection we found is a couple connection
 			if(c_list.get(i) instanceof Couple_Connection 
-					&& connection_check == true) {
+					&& connection_check == true && age_check() == true) {
 				
 				success = true;
 			}
@@ -101,7 +85,20 @@ public class Parent_Connection extends Connection {
 	}
 	
 	
-	
+	//To make sure all children is older than parents.
+	private boolean age_check() throws NoParentException {
+		
+		boolean success = true;
+		
+		if(child.getAge() > getPerson1().getAge() || child.getAge() > getPerson2().getAge()) {
+			success = false;
+			throw new NoParentException("Child can't be older than parent.");
+			
+		}
+		return success;
+	}
+
+
 	// Show difference with normal connection due to the involvement of child.
 	 public void repeat_check(ArrayList<Connection> c_list) throws RepeatException {
 		
@@ -151,14 +148,7 @@ public class Parent_Connection extends Connection {
 		}	
 		
 		return in;
-		
 	}
 	
-	
-	
-	//Need to be complete
-	public void alreadyInFamily(Profile target, ArrayList<Connection> c_list) {
-		
-	}
 
 }

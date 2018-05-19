@@ -29,39 +29,51 @@ public abstract class Connection {
 	}
 	
 
-	
-	//Accessor to get profiles of two persons
+	//Accessors to get profiles of two persons
 	public Profile getPerson1() {
-		
 		return person1;
 	}
 	
 	
-	
 	public Profile getPerson2() {
-	
 		return person2;
 	}
 
 	
-	
-	//Accessor for child in parent relationship
+	//Accessors for child in parent relationship
 	public Profile getChild() {
-	
-		return null;
+    	return null;
 	}
 	
+	
+	//For GUI output only: return the name of the other person and the type of connection
+	public String getOtherPart(Profile profile) {
+		
+		if(!(this instanceof Parent_Connection))
+    		if(person1.getName().equals(profile.getName())){
+    			return String.format("\n\n%s   %s", person2.getName(), getType());
+			
+    		}else {
+    			return String.format("\n\n%s   %s", person1.getName(), getType());
+    		}
+		else {
+			if(((Parent_Connection)this).getChild().getName().equals(profile.getName())){
+				return String.format("\n\n%s   %s\n\n%s   %s", 
+						             person1.getName(), "[PARENT]", person2.getName(), "[PARENT]");
+			}else {
+    			return String.format("\n\n%s   %s", ((Parent_Connection)this).getChild().getName(), "[CHILD]");
+    		}
+		}
+	}
 	
 	
     //Abstract method to check whether this connection is valid to be added. Need to be override.
 	public abstract void check(ArrayList<Connection> c_list) throws Exception ;
 	
 	
-	
 	//Check whether this connection already added in the connection list
 	public void repeat_check(ArrayList<Connection> c_list) throws RepeatException {
-		
-		
+			
 		for(int i = 0;i < c_list.size();i++) {
 						
 			String name1 = c_list.get(i).getPerson1().getName();
@@ -87,21 +99,6 @@ public abstract class Connection {
 	}
 	
 	
-	
-	// Get all persons' profiles within this connection
-	public  ArrayList<Profile> getProfileInside(){
-		
-    	ArrayList<Profile> linked_person = new ArrayList<Profile>();
-		
-		linked_person.add(getPerson1());
-		
-		linked_person.add(getPerson2());
-
-		return linked_person;
-	} 
-	
-	
-	
 	//Serve the search function: check whether the target profile is in this connection
 	public  boolean hasProfile (Profile target){
 		
@@ -114,9 +111,28 @@ public abstract class Connection {
 	    }
 
     	return in;
+    }
 	
+	//A helper method to return type of connection
+	public String getType() {
+		
+		if(this instanceof Friend_Connection) {
+			return "[FRIEND]";
+			
+		}else if(this instanceof Couple_Connection){
+			return "[COUPLE]";
+		
+		}else if(this instanceof Parent_Connection) {
+			return "[RELATIVE]";
+		
+		}else if(this instanceof Colleagues_Connection) {
+			return "[COLLEAGUE]";
+		
+		}else if(this instanceof Classmates_Connection) {
+			return "[CLASSMATE]";
+		}else {
+			return "";
+		}
+		
 	}
-
-
-	
 }

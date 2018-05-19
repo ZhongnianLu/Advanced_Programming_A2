@@ -9,7 +9,8 @@ package Model;
  */
 
 public class Profile {
-	
+
+	//basic personal information
 	private String name;
 	private String image;
 	private String status;
@@ -57,18 +58,29 @@ public class Profile {
 
 	public void setName(String name) {
 		this.name = name;
-	//	System.out.println("Your name has been changed");
 	}
 	
 	public void setStatus(String status) {
 		this.status = status;
-	//	System.out.println("Your status has been changed");
-
 	}
 	
 	public void setImage(String image) {
 		this.image = image;
-	//	System.out.println("Your image has been changed");
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String profileInfo() {
+		
+		return String.format("Name: %s \n\nAge: %d\n\nStatus: %s\n\nGender: %s\n\n", 
+				              name, age, status, gender);
+	}
+	
+	//For gui output.
+	public String toString() {
+		return String.format(name + "    " + "(" + age + ")");
 	}
 	
 

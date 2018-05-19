@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import Exceptions.NoAvailableException;
 import Exceptions.NoParentException;
 import Exceptions.NotToBeCoupledException;
 import Exceptions.NotToBeFriendsException;
@@ -39,7 +40,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	c_list.add(target);
 	}
     
-    
+    //add a normal connection with checking method
     public void addConnection(String name1, String name2, String type) throws Exception {
     	
     	Profile person1 = Pmanager.searchProfile(name1);
@@ -48,7 +49,9 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		Connection addConnect = null;
 		
 		if(type.equals("friends")) {
-				addConnect = new Friend_Connection(person1,person2);
+				
+			    //two person belong to same parents can't become friends.
+			    addConnect = new Friend_Connection(person1,person2);
 				checkFamily(addConnect);
 		}else if(type.equals("couple")){
 				addConnect = new Couple_Connection(person1,person2);
@@ -56,95 +59,39 @@ public class ConnectionManagerImpl implements ConnectionManager{
 				addConnect = new Colleagues_Connection(person1,person2);
 		}else if(type.equals("classmates") ) {
 				addConnect = new Classmates_Connection(person1, person2);
+		}else {
+			throw new NoAvailableException("Type of connection is wrong.");
 		}
 			
-			
+		//Check valid and check repeat	
 		addConnect.check(c_list);
 		addConnect.repeat_check(c_list);
 		c_list.add(addConnect);
     	
     }
     
-    /*Connection type 1: friendConnection
-    * Connection type 2: coupleConnection
-    * Connection type 3: colleagueConnection
-    * Connection type 4: ClassmatesConnection
-    */
-//    public void addConnection(int ID_1, int ID_2, int connectionType) throws Exception   {
-//    	
-//    	Profile person1 = Pmanager.searchProfile(ID_1);
-//		Profile person2 = Pmanager.searchProfile(ID_2);
-//		
-//		Connection addConnect = null;
-//		
-//		if(connectionType == 1) {
-//		//create a new connection with selected profiles
-//			addConnect = new Friend_Connection(person1,person2);
-//			checkFamily(addConnect);
-//		}else if(connectionType == 2){
-//			addConnect = new Couple_Connection(person1,person2);
-//		}else if(connectionType == 3){
-//			addConnect = new Colleagues_Connection(person1,person2);
-//		}else if(connectionType == 4) {
-//			addConnect = new Classmates_Connection(person1, person2);
-//		}
-//		
-//		
-//		addConnect.check(c_list);
-//		addConnect.repeat_check(c_list);
-//		c_list.add(addConnect);
-//		
-//	}
-    
-//    public void addParentConnection(String name1, String name2, String nameChild, String type) throws NoParentException, RepeatException, ProfileNotFoundException {
-//
-//		Profile person1 = Pmanager.searchProfile(name1);
-//		Profile person2 = Pmanager.searchProfile(name2);
-//		Profile child = Pmanager.searchProfile(nameChild);
-//		
-//		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
-//		Parent_Connection addConnect = new Parent_Connection(person1,person2,child);
-//		addConnect.check(c_list);
-//		addConnect.repeat_check(c_list);
-//		getRelations(child.getID(), true);
-//		c_list.add(addConnect);
-//    	
-//    	
-//    }
-    
-
-    
-    public void addParentConnection(String name1, String nameChild) throws NoParentException, ProfileNotFoundException {
+ 
+    //Parent connection is seperate because three persons involved.
+    public void addParentConnection(String name1, String nameChild) throws NoParentException, 
+                                                                           ProfileNotFoundException, 
+                                                                           RepeatException {
     	
     	Profile person1 = Pmanager.searchProfile(name1);
 		Profile child = Pmanager.searchProfile(nameChild);
 		
+		//get the other parent and check it.
 		if(createChildCheckParent(person1) != null) {
-			c_list.add(new Parent_Connection(person1, createChildCheckParent(person1), child));
-		}
+			Profile person2 = createChildCheckParent(person1);
+			Parent_Connection addConnect = new Parent_Connection(person1,person2,child);
 
-    }
+			addConnect.check(c_list);
+			addConnect.repeat_check(c_list);
+			getRelations(child.getName(), true);
+			c_list.add(addConnect);
+		}
+	}
 	
-    // add new parent connection by passing three IDs including parents and child
-    public void addParentConnection(String name1, String name2, String name_child) throws Exception{
-	    			
-		Profile person1 = Pmanager.searchProfile(name1);
-		Profile person2 = Pmanager.searchProfile(name2);
-		Profile child = Pmanager.searchProfile(name_child);
-		
-		
-		//check whether the parent connection is valid by calling parent check method passing IDs of parents 
-		Parent_Connection addConnect = new Parent_Connection(person1,person2,child);
-		
-		addConnect.check(c_list);
-		addConnect.repeat_check(c_list);
-		getRelations(name_child, true);
-		c_list.add(addConnect);
-	
-    }
-	
-    
-  
+    //get the whole connection list.
     public ArrayList<Connection> get_Clist(){
 	
     	return c_list;
@@ -158,20 +105,13 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	
     	// check whether the person has any independent
     	for(Connection connection : search_clist(targetProfile)) {
-    		
-//    		System.out.println("Person1: "+connection.getPerson1().getID());
-//        	System.out.println("Person2: " + connection.getPerson2().getID());
-       // 	System.out.print("+" +connection.getChild().getID());
-       
 
     		if(connection instanceof Parent_Connection && (
     				connection.getPerson1().getName().equals(targetProfile.getName()) || 
     				connection.getPerson2().getName().equals(targetProfile.getName()))) {
     
     			throw new NoParentException("Can't delete a person with at least one dependent");
-    			
-    		}
-    		
+       		}	
     	}
     	
     	//remove all connection 
@@ -180,59 +120,25 @@ public class ConnectionManagerImpl implements ConnectionManager{
     		Connection connection = iterator.next();
     		
     		if(connection.hasProfile(targetProfile)) {
-    			System.out.println("remove test");
     			iterator.remove();
     		}
-    		
     	}
+    }
+	
+    
+    //For GUI output only
+    public String showConnections(Profile profile) {
+    	String relations = "";
     	
-    }
-	
-    
-    
-    //Method to create a array list of profiles connected to a target person
-    public ArrayList<Profile> search(Profile target) {  	
-
-		ArrayList<Profile> contain = new ArrayList<Profile>();
-		
-		for(int i=0;i<c_list.size();i++) {
-			
-		    Connection tem = c_list.get(i);	
-			
-		    //Use check tool created in connection to make sure target person is in the connection.
-		    if(tem.hasProfile(target) == true) {
-	
-		        if((profile_repeat(tem.getPerson1(), contain) == false)
-				    && !(tem.getPerson1().getName().equals(target.getName()))) {
-			
- 		 	      contain.add(tem.getPerson1());	
-		
-		        }
-		
-		        if((profile_repeat(tem.getPerson2(), contain) == false) 
-				    && !(tem.getPerson2().getName().equals( target.getName()))) {
-			
-			       contain.add(tem.getPerson2());	
-		
-		        }
-		
-		        //rule of check parent connection is different.
-		        if(tem instanceof Parent_Connection) {
-		    	
-				    if((profile_repeat(tem.getChild(), contain) == false)
-					    && !(tem.getChild().getName().equals (target.getName()))) {
-				
-				     contain.add(c_list.get(i).getChild());
-			        }
-		        }
-		   }
-	   }
-		
-		return contain;
+    	StringBuilder sb = new StringBuilder(relations);
+    	
+    	for(Connection connection : search_clist(profile)) {
+    		sb.append(connection.getOtherPart(profile));
+    	}
+    	return sb.toString();
     }
     
-    
-    
+        
     //Method to create a connection list of profiles connected to a target person
     public ArrayList<Connection> search_clist(Profile target) {  	
 
@@ -243,14 +149,13 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		    if(temConnection.hasProfile(target) == true) {
 			 
 		 	   contain.add(temConnection);
-		    }
-	     
+		    } 
 	    }
-		
 		return contain;
-		
-    }
+	}
     
+    
+    //find the other parent
 	private Profile createChildCheckParent(Profile person1) throws NoParentException {
 		
 		Profile otherpart = null;
@@ -276,11 +181,10 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		}
 		
 		return otherpart;
-
 	}
 
 
-    // need complete!!!
+    // Check whether two person in the connection belong to same family
     private void checkFamily(Connection addConnect) throws NotToBeFriendsException {
 	    	
     	Profile friend1 = addConnect.getPerson1();
@@ -317,8 +221,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     			(person1_f1.getName().equals(person2_f2.getName()) && person1_f2.getName().equals(person2_f1.getName()))) {
     		
             		throw new NotToBeFriendsException("Two childs in the same family can't become friends. ");
-    		
-           	}
+    	    }
     	}
 	}
     
@@ -335,15 +238,14 @@ public class ConnectionManagerImpl implements ConnectionManager{
     			
     			repeat = true;
     		}
-    	
     	}
-    	
     	return repeat;
     }
     
     
-	/* Input profile and iterates through their connections, returning a list of parent connections */
- 	public ArrayList<Connection> getRelations(String name, boolean checkParent) throws ProfileNotFoundException, NoParentException{
+    //return all parent connections related to one person, it contains checking tool to make sure no repeated in parent connection
+    public ArrayList<Connection> getRelations(String name, boolean checkRelation) throws ProfileNotFoundException, 
+ 	                                                                                     NoParentException{
  		
  		Profile prof = Pmanager.searchProfile(name);
  		 		
@@ -351,17 +253,27 @@ public class ConnectionManagerImpl implements ConnectionManager{
  		
  		/* Create new list of connections and only add parent connections to it */
  		ArrayList<Connection> relations = new ArrayList<Connection>();		
+ 		
  		for(Connection connection : friends) {
  			
  			if (connection instanceof Parent_Connection) {
  				relations.add(connection);
- 				if(checkParent == true && connection.getChild().getName().equals(name)) {
+ 				if(checkRelation == true) {				
+ 					if(connection.getChild().getName().equals(name)) {
  					
- 					throw new NoParentException("The child already has parents.");
- 				}
- 			
+    					throw new NoParentException("The child already has parents.");
+    				}
+ 		    	}
  			}
  			
+ 			if(connection instanceof Couple_Connection) {
+ 				if(connection.getPerson1().getName().equals(name) || 
+						connection.getPerson1().getName().equals(name)) {
+					throw new NoParentException("Invalid parent relation.");
+
+     			}
+ 			
+ 	    	}
  		}
  		return relations;
  	}
@@ -383,16 +295,11 @@ public class ConnectionManagerImpl implements ConnectionManager{
 
 
 	@Override
+	//Method to connect a profile manager
 	public void setPmanager(ProfileManager profiles) {
 
 		Pmanager = profiles;
 	}
-
-
-	
-	
-
-
 }
     
 	

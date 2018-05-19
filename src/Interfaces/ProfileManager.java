@@ -4,27 +4,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+import Exceptions.NoAvailableException;
 import Exceptions.NoSuchAgeException;
 import Exceptions.ProfileNotFoundException;
+import Exceptions.ProfileRepeatException;
 import Model.Profile;
 
 public interface ProfileManager {
 	
-	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException;
+	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException, ProfileRepeatException, NoAvailableException;
 	
 	public boolean uniqueName(String name);
-	
-	public ArrayList<Profile> getAdults();
-	
-	public Profile selectProfile(String title) throws IOException;
-	
-	public ArrayList<String> listNames();
-	
-	public Profile askInfo() throws IOException, InputMismatchException;
-
+				
 	public ArrayList<Profile> get_Plist();
 
-	public void addProfile(Profile person) throws NoSuchAgeException;
+	public void addProfile(Profile person) throws NoSuchAgeException, NoAvailableException;
 
 	public void removeProfile(Profile person);
 	

@@ -19,6 +19,11 @@ import Model.ConnectionManagerImpl;
 import Model.Profile;
 import Model.ProfileManagerImpl;
 
+/*
+ * A junit test class to test restrictions built in ConnectionManager
+ * 
+ * 
+ */
 class ConnectionManagerImplTest {
 	
 	static ProfileManager profiles;
@@ -68,7 +73,7 @@ class ConnectionManagerImplTest {
 			profiles.addProfile(p9);
 			profiles.addProfile(p10);
 
-		} catch (NoSuchAgeException e1) {
+		} catch (NoSuchAgeException | NoAvailableException e1) {
 			System.out.println(e1.getMessage());
 			}
 		
@@ -126,7 +131,7 @@ class ConnectionManagerImplTest {
 	@Test
 	void testAddParentConnection() {
 	
-		assertThrows(NoParentException.class, () -> conns.addParentConnection("A","G","E"));
+		assertThrows(NoParentException.class, () -> conns.addParentConnection("A","E"));
 	}
 	
 	@Test
@@ -134,7 +139,7 @@ class ConnectionManagerImplTest {
 		
 		try {
 		
-			conns.addParentConnection("I","J","F");
+			conns.addParentConnection("I","F");
 
 		} catch (NoParentException e) {
 			e.printStackTrace();
@@ -164,7 +169,7 @@ class ConnectionManagerImplTest {
 		}
 
 		try {
-			conns.addParentConnection("I","J","D");
+			conns.addParentConnection("I","D");
 		} catch (NoParentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

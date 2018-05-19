@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.NoAvailableException;
 import Exceptions.NoSuchAgeException;
 import Exceptions.ProfileNotFoundException;
+import Exceptions.ProfileRepeatException;
 import Interfaces.ProfileManager;
 
 /*
@@ -33,36 +35,41 @@ public class ProfileManagerImpl implements ProfileManager {
 		return profiles;
 	}
 	
-	public void addProfile(Profile add) throws NoSuchAgeException{
+	public void addProfile(Profile add) throws NoSuchAgeException, NoAvailableException{
+		if(add.getName() == null || uniqueName(add.getName()) == false){
+			throw new NoAvailableException("Name is invalid");
+		}
 		if((add.getAge()) >= 150) {
 			throw new NoSuchAgeException("Age can't be over 150 years. ");
 		}
 		profiles.add(add);
 	}
 	
+	
 	public void removeProfile(Profile del) {
 		profiles.remove(del);
 	}
 	
+	
 	/* ArrayList given to fill an empty list or override an existing list */
-	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException {
-		int len = profiles.size();
-		
-		/* Iterate over the list to override and delete all entries */
-		for (int i = 0; i < this.get_Plist().size(); i++) { //reset the list
-			this.removeProfile(this.get_Plist().get(i));
-		}
-		
+	public void importList(ArrayList<Profile> profiles) throws NoSuchAgeException, ProfileRepeatException, NoAvailableException {
+				
 		/* Iterate over given list and add entries to main list */
-		for (int i = 0; i < len; i++) {
+		for (Profile profile : profiles) {
 			try {
-				this.addProfile(profiles.get(i));
+				if(uniqueName(profile.getName()) == false) {
+					throw new ProfileRepeatException("Name repeated.");
+					
+				}
+				this.addProfile(profile);
+				
 			} catch (NoSuchAgeException e) {
 				throw new NoSuchAgeException("Age can't be over 150 years.");
-			}
+			} 
 		}
 		
 	}
+	
 	
 	/*checks if a given name is unique among the profiles, return true means it is unique */
 	public boolean uniqueName(String name) {
@@ -81,102 +88,14 @@ public class ProfileManagerImpl implements ProfileManager {
 		return unique; 
 	}
 	
-	/* Returns list of adult from the ProfileManager it is used on */
-	public ArrayList<Profile> getAdults() {
-		ArrayList<Profile> tempList = new ArrayList<Profile>();
-		
-		for (int i = 0; i < this.get_Plist().size(); i++) {
-			Profile temp = this.get_Plist().get(i);
-			
-			/* iterate through list and if age is over 16, add to empty list */
-			if (temp.getAge() >= 16) {
-				tempList.add(temp);
-			}
-		}
-		
-		return tempList;
-	}
-	
-	/* Method to return a selected profile from a given list */
-	public Profile selectProfile(String title) throws IOException {
-		
-		Profile selectProf = null; //initiate profile object
-		ArrayList<Profile> plist = this.get_Plist();
-		int option;
-		
-		/* Create list of names */
-		ArrayList<String> names = this.listNames();
-		names.add("Exit to Main Menu");
-		
-		do{
-			option = Menu.display_Menu(title, names);
-			
-			if ( option >= 1 && option <= names.size()-1) {
-				selectProf = plist.get(option-1);
-			}
-			
-			break;
-		}while(option != 0);
-		
-		return  selectProf;
-	}
-	
-	/* Method to return list of names of ProgramManager it is used on */
-	public ArrayList<String> listNames() {
-		
-		ArrayList<String> names = new ArrayList<String>();
-		String name;
-		
-		/* Iterate on profile list adding names to list */
-		for (int i = 0; i < this.get_Plist().size(); i++) {
-			
-			name = this.get_Plist().get(i).getName();
-			names.add(name);
-			
-		}
-		
-		return names;
-	}
-	
-	/* Method to ask and receive profile info from user and create profile object */
-	public Profile askInfo() throws IOException, InputMismatchException {
-		
-		Scanner scan = new Scanner(System.in);
-		System.out.println();
-		
-		/* enter name and check if unique */
-		System.out.println("\nPlease enter your name : ");
-		String name = scan.nextLine();
-		if (this.uniqueName(name) != true) {
-			throw new IOException("\nError: Name must be unique");
-		}
-	
-		
-		System.out.println("\nPlease enter your age : "); 
-		int age = scan.nextInt();
-		if (age <= 0) {
-			throw new IOException("\nError: Age must be nonzero and positive");
-		}
-		
-		scan.nextLine();
-		System.out.println("\nPlease enter a status update : ");   
-		String status = scan.nextLine();
-		
-		/* create profile object and set ID */
-		Profile person = new Profile(name, status, null, null, age, null); 
-//		person.setID(get_Plist().size()+1); 
-		
-		return person;			
-	}
-	
 	
 	public Profile searchProfile(String name) throws ProfileNotFoundException {
 		
 		boolean success = false;
+
 		for(Profile profile : profiles) {
 			
 			if(profile.getName().equals(name)) {
-				
 				success = true;
 				return profile;
 			}
@@ -186,13 +105,7 @@ public class ProfileManagerImpl implements ProfileManager {
 			
 			throw new ProfileNotFoundException("Can't find the profile in database.");
 		}
-		
 		return null;
-		
 	}
-
-
-
-
 }
 

@@ -128,11 +128,6 @@ class ConnectionManagerImplTest {
 
 	}
 
-	@Test
-	void testAddParentConnection() {
-	
-		assertThrows(NoParentException.class, () -> conns.addParentConnection("A","E"));
-	}
 	
 	@Test
 	void testAddChildConnection() {

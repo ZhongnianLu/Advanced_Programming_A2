@@ -45,6 +45,8 @@ public interface ConnectionManager {
 	//Only for GUI, it return a string contains all connections info.
 	public String showConnections(Profile profile);
 	
+	public String showConnections(Profile profile1, Profile profile2);
+	
     // Check whether profile is repeated
 	public boolean profile_repeat(Profile target, ArrayList<Profile> check_plist); 
 	 

@@ -24,16 +24,10 @@ public class DBTest {
 		try {
 			Class.forName("org.hsqldb.jdbcDriver");
 			connection = DriverManager.getConnection("jdbc:hsqldb:TestDB", "sa", "123");
-			connection.prepareStatement("drop table barcodes if exists;").execute();
-			connection.prepareStatement("create table barcodes(id integer, barcode varchar(20) not null);").execute();
-			connection.prepareStatement("insert into barcodes(id, barcode)"+ "values (1, '12345577');").execute();
-			
-			//
-			// // query from the db
-			rs = connection.prepareStatement("select id, barcode from barcodes;").executeQuery();
-			rs.next();
-			System.out.println(String.format("ID: %1d, Name:%1s", rs.getInt(1), rs.getString(2)));
-			connection.commit();
+//			rs = connection.prepareStatement("select id, barcode from barcodes;").executeQuery();
+//			rs.next();
+//			System.out.println(String.format("ID: %1d, Name:%1s", rs.getInt(1), rs.getString(2)));
+//			connection.commit();
 	
 		} catch (SQLException e2) {
 			e2.printStackTrace();

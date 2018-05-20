@@ -126,7 +126,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
     }
 	
     
-    //For GUI output only
+    //For GUI output only, connections related to one person
     public String showConnections(Profile profile) {
     	String relations = "";
     	
@@ -134,6 +134,20 @@ public class ConnectionManagerImpl implements ConnectionManager{
     	
     	for(Connection connection : search_clist(profile)) {
     		sb.append(connection.getOtherPart(profile));
+    	}
+    	return sb.toString();
+    }
+    
+    //For GUI output only, connections related to two persons
+    public String showConnections(Profile profile1, Profile profile2) {
+    	String relations = "";
+    	
+    	StringBuilder sb = new StringBuilder(relations);
+    	
+    	for(Connection connection : search_clist(profile1)) {
+    		if(connection.hasProfile(profile2)) {
+        		sb.append(connection.getType() + "\n\n");
+        	}
     	}
     	return sb.toString();
     }

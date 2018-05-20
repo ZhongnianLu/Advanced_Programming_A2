@@ -10,9 +10,9 @@ public class ConnectDatabase {
 	public static void connecting() {
 		Connection con = null;
 		
-		DBTest test = new DBTest();
-		test.dbtest();
-		
+//		DBTest test = new DBTest();
+//		test.dbtest();
+//		
 		try {
 			
 			//Registering the HSQLDB JDBC driver

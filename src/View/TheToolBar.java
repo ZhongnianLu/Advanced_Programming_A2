@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import Controller.AddProfileListener;
+import Controller.CheckConnectionListener;
 import Controller.ImportDataListener;
 import Controller.SelectProfileListener;
 import Model.MiniNetModel;
@@ -26,6 +27,8 @@ public class TheToolBar extends JToolBar{
 	private static MiniNetModel model;
 	
 	private static JLabel image;
+	
+	private static JButton checkconnection;
 	
 	//Store a boolean to let import only happen once.
 	private static boolean importCheck = false;
@@ -50,6 +53,10 @@ public class TheToolBar extends JToolBar{
 		selection.setSize(getPreferredSize());
 		selection.addItemListener(new SelectProfileListener());
 		add(selection);
+		
+		checkconnection = new JButton("CHECK CONNECTION");
+		checkconnection.addActionListener(new CheckConnectionListener());
+		add(checkconnection);
 		
 		image = new JLabel();
 		add(image);	

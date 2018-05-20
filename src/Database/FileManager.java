@@ -26,7 +26,7 @@ public class FileManager {
 		
 		ArrayList<Profile> profiles = new ArrayList<Profile>();
 		
-		FileReader fr = new FileReader("people1.txt") ;
+		FileReader fr = new FileReader("people.txt") ;
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 			
@@ -44,7 +44,7 @@ public class FileManager {
 	// read all connections from relations.txt
 	public  void readConnection(ProfileManager pmanager, ConnectionManager cmanager) throws IOException {
 		
-		FileReader fr = new FileReader("relations1.txt") ;
+		FileReader fr = new FileReader("relations.txt") ;
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 		

@@ -25,7 +25,8 @@ public class ChangeInfoListener implements ActionListener{
 		try {
     		int chose = Integer.parseInt(JOptionPane.showInputDialog(null, "Plese enter the type of information you want to change--"
 				+ "\n\n1. Name\n2. Status\n3. Gender\n4. Image"));
-		
+		    
+    		//change info based on the type the user chosen
     		switch(chose) {
     		case 1:
 	    		String name = JOptionPane.showInputDialog(null, "Plese enter a name: ");

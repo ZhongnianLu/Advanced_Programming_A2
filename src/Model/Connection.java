@@ -12,6 +12,8 @@ import Exceptions.RepeatException;
  * Assume all connections contains two major person (person1 and person2).
  * 
  * Include a method to avoid adding any repeated connection. 
+ * 
+ * 
 */
 
 public abstract class Connection {
@@ -92,10 +94,8 @@ public abstract class Connection {
 					&& c_list.get(i).getClass().equals(getClass())){
 				
 				throw new RepeatException("Profile Repeated");
-								
 			}
 		}
-		
 	}
 	
 	
@@ -112,6 +112,7 @@ public abstract class Connection {
 
     	return in;
     }
+	
 	
 	//A helper method to return type of connection
 	public String getType() {

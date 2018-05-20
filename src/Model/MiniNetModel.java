@@ -7,7 +7,7 @@ import Interfaces.ProfileManager;
 
 /*
  * For GUI output, all managers are packed into one model.
- * The model is private, final and static to make sure only one coule be existed.
+ * The model is private, final and static to make sure only one object existed.
  * 
  * 
  */

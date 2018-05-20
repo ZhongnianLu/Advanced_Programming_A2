@@ -88,6 +88,11 @@ public class AddConnectionListener implements ActionListener{
 		}
 
 	//Helper method to create a parent relation
+	/*
+	 * @profile the person selected in the combo box
+	 * @name the other person related to this new connection 
+	 * @model
+	 */
 	private void addParent(Profile profile, String name, MiniNetModel model) throws NoParentException, RepeatException, 
 	                                                                                ProfileNotFoundException, NotToBeFriendsException {
 

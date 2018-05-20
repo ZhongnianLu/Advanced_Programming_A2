@@ -32,6 +32,7 @@ public class ImportDataListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		//create reference for all manager classes in the system
 		model = MiniNetModel.getModel();
 		
 		dreader = model.getDataReader();

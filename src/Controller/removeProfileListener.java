@@ -25,6 +25,7 @@ public class removeProfileListener implements ActionListener{
 			MiniNetModel.getModel().getConnectionManager().removeConnections(profile.getName());
 			MiniNetModel.getModel().getProfileManager().removeProfile(profile);
 			
+			//Update combo box
 			TheToolBar.updateProfiles();
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());

@@ -60,13 +60,7 @@ public  class Friend_Connection extends Connection{
 			
 			throw new TooYoungException("Adult can't make friend with a teenager");
 		}
-		
-		
-    }
-
-
-
-
+	}
 }
 	
 	

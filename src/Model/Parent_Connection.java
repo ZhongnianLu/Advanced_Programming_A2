@@ -111,8 +111,7 @@ public class Parent_Connection extends Connection {
     			if(c_list.get(i).getChild().getName().equals(getChild().getName())){
 				
 	    			child_repeat = true;
-			
-		    	}
+	    		}
 			
     		 	if(c_list.get(i).getPerson1().getName().equals(getPerson1().getName()) 
 	    				&& c_list.get(i).getPerson2().getName().equals(getPerson2().getName())
@@ -149,6 +148,4 @@ public class Parent_Connection extends Connection {
 		
 		return in;
 	}
-	
-
 }

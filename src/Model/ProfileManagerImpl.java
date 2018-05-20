@@ -17,6 +17,8 @@ import Interfaces.ProfileManager;
  * to manipulate the list as well as search it and 
  * other related functions
  * 
+ * 
+ * @see Profilemanager.interface
  */
 
 public class ProfileManagerImpl implements ProfileManager {
@@ -35,6 +37,7 @@ public class ProfileManagerImpl implements ProfileManager {
 		return profiles;
 	}
 	
+	//@add new profile need to be added into the profile list
 	public void addProfile(Profile add) throws NoSuchAgeException, NoAvailableException{
 		if(add.getName() == null || uniqueName(add.getName()) == false){
 			throw new NoAvailableException("Name is invalid");
@@ -45,7 +48,7 @@ public class ProfileManagerImpl implements ProfileManager {
 		profiles.add(add);
 	}
 	
-	
+	//@del existing profile need to be deleted in this list.
 	public void removeProfile(Profile del) {
 		profiles.remove(del);
 	}
@@ -67,7 +70,6 @@ public class ProfileManagerImpl implements ProfileManager {
 				throw new NoSuchAgeException("Age can't be over 150 years.");
 			} 
 		}
-		
 	}
 	
 	
@@ -89,6 +91,7 @@ public class ProfileManagerImpl implements ProfileManager {
 	}
 	
 	
+	// a tool method to return a profile according to the name
 	public Profile searchProfile(String name) throws ProfileNotFoundException {
 		
 		boolean success = false;

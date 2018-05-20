@@ -20,7 +20,9 @@ import Interfaces.ProfileManager;
  * 
  * This class contains all methods to add different types of new connection.
  * 
- * This class helps search and display functions in Menu class. 
+ * This class helps search and display functions in Menu class.
+ * 
+ *  @see ConnectionManager.interface
  * 
  */
 
@@ -185,7 +187,6 @@ public class ConnectionManagerImpl implements ConnectionManager{
 				else if(connection.getPerson2().getName().equals(person1.getName())){
 					otherpart = connection.getPerson1();
 					success = true;
-					
 				}
 			}
 		}
@@ -302,9 +303,7 @@ public class ConnectionManagerImpl implements ConnectionManager{
 		for (int i = 0; i < len; i++) {
 			
       		 this.addConnection(readConnections.get(i));
-		
 		}
-		
 	}
 
 

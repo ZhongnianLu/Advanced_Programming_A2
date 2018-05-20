@@ -68,8 +68,10 @@ public class AddProfileListener implements ActionListener {
 	
 
 	// A user need to decide the parent for the child.
+	//@profile the person selected in the combo box
 	private void createChild(Profile profile) {
 		
+		//at least one of the parents should be chosen.
 		String parent1 = JOptionPane.showInputDialog("Please enter one of his/her parent's name:  ");
 		
 		try {

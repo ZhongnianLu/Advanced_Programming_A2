@@ -42,8 +42,12 @@ public class DatabaseReader {
 	         con = DriverManager.getConnection(
 	            "jdbc:hsqldb:hsql://localhost/testdb", "SA", "");
 	         stmt = con.createStatement();
+		     int counts = stmt.executeUpdate("CREATE TABLE people (name VARCHAR(50) NOT NULL, image VARCHAR(50),status VARCHAR(200), gender VARCHAR(3), age INT NOT NULL, state VARCHAR(10),PRIMARY KEY (name));");
+
 	         result = stmt.executeQuery(
 	            "SELECT * FROM people");
+	         
+	         
 	         
 	         while(result.next()){
 	            

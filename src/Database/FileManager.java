@@ -26,11 +26,11 @@ public class FileManager {
 		
 		ArrayList<Profile> profiles = new ArrayList<Profile>();
 		
-		FileReader fr = new FileReader("people.txt") ;
+		FileReader fr = new FileReader("people1.txt") ;
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 			
-		while((line = br.readLine())!=null) {
+		while((line = br.readLine()) != null) {
 			String[] tokens = line.split(",");
 			Profile addProfile = new Profile(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), tokens[5]);
 			profiles.add(addProfile);
@@ -44,7 +44,7 @@ public class FileManager {
 	// read all connections from relations.txt
 	public  void readConnection(ProfileManager pmanager, ConnectionManager cmanager) throws IOException {
 		
-		FileReader fr = new FileReader("relations.txt") ;
+		FileReader fr = new FileReader("relations1.txt") ;
 		BufferedReader br = new BufferedReader(fr);
 		String line;
 		
